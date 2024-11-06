@@ -1,0 +1,131 @@
+body {
+  color: #555555;
+  background-image: url("../../assets/images/backgrounds/space.png");
+  background-size: cover;
+  font-family: Arial;
+}
+
+.button, .replyuserbutton {
+  border-radius: 5px;
+  box-shadow: inset 0px 4px 6px 0px rgba(210, 255, 250, 0.3764705882);
+  background: #69ACA8;
+  border: 1px solid #427C9C;
+  color: #ffffff;
+  padding: 6px;
+  padding-left: 14px;
+  padding-right: 14px;
+}
+
+.contentbox {
+  display: table;
+  margin: auto;
+  background: rgba(218, 208, 231, 0.7960784314);
+  padding: 25px;
+  min-width: 900px;
+  width: 70%;
+  border-spacing: 5px;
+}
+
+.miniwin-header, .replywin-header {
+  position: relative;
+  margin: auto;
+  border-radius: 5px;
+  background: #BD8ABE;
+  color: #ffffff;
+  padding: 6px;
+  border: 1px solid #7D528C;
+  box-shadow: inset 0px 4px 6px 0px #E2B0DD;
+  z-index: 1;
+  font-size: 14px;
+}
+
+.miniwin-body, .replywin-body {
+  position: relative;
+  margin: auto;
+  margin-top: -8px;
+  border-radius: 5px;
+  background: #EAE2F5;
+  color: #555555;
+  padding: 18px;
+  padding-top: 24px;
+  border: 1px solid #BD8ABE;
+  box-shadow: 0px 4px 4px 0px rgba(125, 82, 140, 0.1921568627);
+}
+
+.replyactions {
+  display: table-row;
+  width: 100%;
+}
+
+.replyactions-space {
+  display: table-cell;
+  width: 15%;
+  min-width: 180px;
+}
+
+.replyactions-buttonblock {
+  display: inline-block;
+  float: right;
+  padding-right: 48px;
+}
+
+.reply {
+  display: table-row;
+  padding: 20px;
+}
+
+.replysignature {
+  display: table-row;
+}
+
+.replysignature-space {
+  display: table-cell;
+  width: 15%;
+  min-width: 180px;
+}
+
+.replysignature-content {
+  display: table-cell;
+  text-align: center;
+  padding: 32px;
+}
+
+.replyuser {
+  width: 15%;
+  min-width: 180px;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  margin-right: 32px;
+}
+
+.replyuserstatus {
+  padding: 4px;
+  font-size: 12px;
+}
+
+.replyuserbuttonblock {
+  display: inline-block;
+}
+
+.replyuserbutton {
+  display: table-cell;
+  font-size: 12px;
+  margin: 4px;
+}
+
+.replywin {
+  display: table-cell;
+}
+
+.replywin-header {
+  height: 15px;
+  margin-right: 42px;
+}
+
+.replywin-body {
+  height: 200px;
+  margin-right: 42px;
+}
+
+/*# sourceMappingURL=topic_style.css.map */

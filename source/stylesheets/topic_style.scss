@@ -1,0 +1,132 @@
+body {
+    color:#555555;
+    background-image: url('../../assets/images/backgrounds/space.png');
+    background-size: cover;
+    font-family: Arial;
+}
+
+.button {
+    border-radius: 5px;
+    box-shadow: inset 0px 4px 6px 0px #d2fffa60;
+    background: #69ACA8;
+    border: 1px solid #427C9C;
+    color:#ffffff;
+    padding: 6px;
+    padding-left: 14px;
+    padding-right: 14px;
+}
+
+.contentbox {
+    display: table;
+    margin:auto;
+    background: #dad0e7cb;
+    padding: 25px;
+    min-width: 900px;
+    width: 70%;
+    border-spacing: 5px;
+}
+
+.miniwin-header {
+    position: relative;
+    margin:auto;
+    border-radius: 5px;
+    background: #BD8ABE;
+    color:#ffffff;
+    padding: 6px;
+    border: 1px solid #7D528C;
+    box-shadow: inset 0px 4px 6px 0px #E2B0DD;
+    z-index: 1;
+    font-size: 14px;
+}
+
+.miniwin-body {
+    position: relative;
+    margin: auto;
+    margin-top:-8px;
+    border-radius: 5px;
+    background: #EAE2F5;
+    color:#555555;
+    padding: 18px;
+    padding-top: 24px;
+    border: 1px solid #BD8ABE;
+    box-shadow: 0px 4px 4px 0px #7d528c31;
+}
+
+.replyactions {
+    display: table-row;
+    width: 100%;
+}
+
+.replyactions-space {
+    display: table-cell;
+    width: 15%;
+    min-width: 180px;
+}
+
+.replyactions-buttonblock {
+    display: inline-block;
+    float: right;
+    padding-right: 48px;
+}
+
+.reply {
+    display: table-row;
+    padding: 20px;
+}
+
+.replysignature {
+    display: table-row;
+}
+
+.replysignature-space {
+    display: table-cell;
+    width: 15%;
+    min-width: 180px;
+}
+
+.replysignature-content {
+    display: table-cell;
+    text-align: center;
+    padding: 32px;
+}
+
+.replyuser {
+    width: 15%;
+    min-width: 180px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    margin-right: 32px;
+}
+
+.replyuserstatus {
+    padding: 4px;
+    font-size: 12px;
+}
+
+.replyuserbuttonblock {
+    display: inline-block;
+}
+
+.replyuserbutton {
+    @extend .button;
+    display: table-cell;
+    font-size: 12px;
+    margin: 4px;
+}
+
+.replywin {
+    display: table-cell;
+}
+
+.replywin-header {
+    @extend .miniwin-header;
+    height: 15px;
+    margin-right: 42px;
+}
+
+.replywin-body {
+    @extend .miniwin-body;
+    height: 200px;
+    margin-right: 42px;
+}
