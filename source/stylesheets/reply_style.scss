@@ -1,40 +1,4 @@
-body {
-    color:#555555;
-    background-image: url('../../assets/images/backgrounds/space.png');
-    background-size: cover;
-    font-family: Arial;
-}
-
-.button {
-    border-radius: 5px;
-    background: #69ACA8;
-    box-shadow: inset 0px 4px 6px 0px #d2fffa60;
-    border: 1px solid #427C9C;
-    color:#ffffff;
-    padding: 6px;
-    padding-left: 14px;
-    padding-right: 14px;
-    transition-duration: 0.3s;
-    font-size: 12px;
-    cursor: pointer;
-}
-
-.button:hover {
-    background: #5e92a1;
-    box-shadow: inset 0px 4px 6px 0px #9bd5e460;
-}
-
-.button-accent {
-    @extend .button;
-    background: #7F8FC7;
-    box-shadow: inset 0px 4px 6px 0px #a0bae1b6;
-    border: 1px solid #79629E;
-}
-
-.button-accent:hover {
-    background: #7574b8;
-    box-shadow: inset 0px 4px 6px 0px #8ba1d18f;
-}
+@use "style";
 
 .contentbox {
     display: table;
