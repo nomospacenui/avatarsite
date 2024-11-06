@@ -15,10 +15,10 @@ function reply_element(){
     reply_actions.appendChild(reply_actions_buttonblock)
 
     var reply_buttonquote = document.createElement('button')
-    reply_buttonquote.className = "replyuserbutton"
+    reply_buttonquote.className = "replybutton"
     reply_buttonquote.innerHTML = "Quote"
     var reply_buttonreport = document.createElement('button')
-    reply_buttonreport.className = "replyuserbutton"
+    reply_buttonreport.className = "replybutton-accent"
     reply_buttonreport.innerHTML = "Report"
     reply_actions_buttonblock.appendChild(reply_buttonquote)
     reply_actions_buttonblock.appendChild(reply_buttonreport)
@@ -44,13 +44,13 @@ function reply_element(){
     reply_avatar.src = "../../assets/images/avatar/base.png"
     
     var reply_buttonblock = document.createElement('div')
-    reply_buttonblock.className = "replyuserbuttonblock"
+    reply_buttonblock.className = "replybuttonblock"
 
     var reply_buttonfriend = document.createElement('button')
-    reply_buttonfriend.className = "replyuserbutton"
+    reply_buttonfriend.className = "replybutton"
     reply_buttonfriend.innerHTML = "Friend"
     var reply_buttonpm = document.createElement('button')
-    reply_buttonpm.className = "replyuserbutton"
+    reply_buttonpm.className = "replybutton"
     reply_buttonpm.innerHTML = "PM"
     reply_buttonblock.appendChild(reply_buttonfriend)
     reply_buttonblock.appendChild(reply_buttonpm)
