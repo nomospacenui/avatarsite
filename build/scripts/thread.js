@@ -1,3 +1,5 @@
+import Post from "./post.js"
+
 class Thread {
     constructor() {
         var page_title = document.getElementById("page_title")
@@ -23,4 +25,4 @@ class Thread {
     }
 }
 
-new Thread()
+export default Thread

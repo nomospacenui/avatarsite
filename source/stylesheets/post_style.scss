@@ -36,45 +36,45 @@
     box-shadow: 0px 4px 4px 0px #7d528c31;
 }
 
-.replyactions {
+.postactions {
     display: table-row;
     width: 100%;
 }
 
-.replyactions-space {
+.postactions-space {
     display: table-cell;
     width: 15%;
     min-width: 180px;
 }
 
-.replyactions-buttonblock {
+.postactions-buttonblock {
     display: inline-block;
     float: right;
     padding-right: 48px;
 }
 
-.replybulk {
+.postbulk {
     display: table-row;
     padding: 20px;
 }
 
-.replysignature {
+.postsignature {
     display: table-row;
 }
 
-.replysignature-space {
+.postsignature-space {
     display: table-cell;
     width: 15%;
     min-width: 180px;
 }
 
-.replysignature-content {
+.postsignature-content {
     display: table-cell;
     text-align: center;
     padding: 32px;
 }
 
-.replyuser {
+.postuser {
     width: 15%;
     min-width: 180px;
     display: table-cell;
@@ -83,38 +83,38 @@
     margin-right: 32px;
 }
 
-.replyuserstatus {
+.postuserstatus {
     padding: 4px;
     font-size: 12px;
 }
 
-.replyuserbuttonblock {
+.postuserbuttonblock {
     display: inline-block;
 }
 
-.replybutton {
+.postbutton {
     @extend .button;
     display: table-cell;
     margin: 4px;
 }
 
-.replybutton-accent {
+.postbutton-accent {
     @extend .button-accent;
     display: table-cell;
     margin: 4px;
 }
 
-.replywin {
+.postwin {
     display: table-cell;
 }
 
-.replywin-header {
+.postwin-header {
     @extend .miniwin-header;
     height: 15px;
     margin-right: 42px;
 }
 
-.replywin-body {
+.postwin-body {
     @extend .miniwin-body;
     height: 200px;
     margin-right: 42px;
