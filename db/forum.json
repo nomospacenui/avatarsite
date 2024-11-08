@@ -1,0 +1,87 @@
+{
+    "type": "database",
+    "name": "forum",
+    "objects": [
+        {
+            "type": "table",
+            "database": null,
+            "name": "replies",
+            "withoutRowId": false,
+            "strict": false,
+            "ddl": "CREATE TABLE replies (id INTEGER PRIMARY KEY, thread_id INTEGER REFERENCES threads (id), content TEXT)",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "PRIMARY KEY",
+                            "definition": "PRIMARY KEY"
+                        }
+                    ]
+                },
+                {
+                    "name": "thread_id",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "FOREIGN KEY",
+                            "definition": "REFERENCES threads (id)"
+                        }
+                    ]
+                },
+                {
+                    "name": "content",
+                    "type": "TEXT"
+                }
+            ],
+            "rows": [
+                [
+                    1,
+                    1,
+                    "Do what you love and love what you do"
+                ],
+                [
+                    2,
+                    1,
+                    "Drag is fun so dont drag your <i>dream<\/i>"
+                ],
+                [
+                    3,
+                    1,
+                    "lead with love and <b>slay<\/b> the scene"
+                ]
+            ]
+        },
+        {
+            "type": "table",
+            "database": null,
+            "name": "threads",
+            "withoutRowId": false,
+            "strict": false,
+            "ddl": "CREATE TABLE threads (id INTEGER PRIMARY KEY, content TEXT)",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "PRIMARY KEY",
+                            "definition": "PRIMARY KEY"
+                        }
+                    ]
+                },
+                {
+                    "name": "content",
+                    "type": "TEXT"
+                }
+            ],
+            "rows": [
+                [
+                    1,
+                    "Hold up <b>wait<\/b> let me add my 2"
+                ]
+            ]
+        }
+    ]
+}
