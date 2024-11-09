@@ -1,20 +1,24 @@
 import Thread from "./thread.js"
 
+function init_forum_json(forum_json_url) {
+    return new Promise(function(resolve, reject) {
+        var xhr= new XMLHttpRequest()
+        xhr.open('GET', forum_json_url)
+        xhr.send()
+
+        xhr.onload = function() {
+            resolve(JSON.parse(String(xhr.responseText)))
+        }
+    })
+}
+
 function init_thread_database(){
-
-    var xml= new XMLHttpRequest();
-    xml.open('GET', "../../db/forum.json");
-    xml.send()
-
-    var json_content = {}
-    xml.onload = function() {
-        json_content = JSON.parse(String(xml.responseText));
-
+    return new Promise(function(resolve, reject) {
         //command for resetting: indexedDB.deleteDatabase('forum')
         var request  = indexedDB.open("forum", 1)
 
         request.onupgradeneeded = function (event) {
-            var db = event.target.result;
+            var db = event.target.result
             
             for (var i = 0 ; i < json_content["objects"].length; ++i) {
                 
@@ -36,43 +40,62 @@ function init_thread_database(){
                     cols.forEach((col, index) => data[col] = values[index])
                     object_store.add(data)
                 }
-
-                console.log(db)
             }
         };
 
         request.onsuccess = function(event) {
-            var db = event.target.result;
-
-            const thread_id = 1
-            
-            var replies_transaction = db.transaction("replies", "readwrite")
-            var replies_object_store = replies_transaction.objectStore("replies")
-            var get_cursor_request = replies_object_store.openCursor()
-
-            var replies_data = []
-            get_cursor_request.onsuccess = function (e) {
-                const cursor = e.target.result;
-                if (cursor) {
-                    if (cursor.value["thread_id"] == thread_id) {
-                        replies_data.push(cursor.value)
-                    }
-                    cursor.continue();
-                }
-            
-                var threads_transaction = db.transaction("threads", "readwrite")
-                var threads_object_store = threads_transaction.objectStore("threads")
-
-                var get_thread_request = threads_object_store.get(thread_id)
-
-                get_thread_request.onsuccess = function(event) {
-                    var result = event.target.result;
-
-                    new Thread(result, replies_data)
-                };
-            }
+            var db = event.target.result
+            resolve(db)
         }
-    }
+    })
 }
 
-init_thread_database()
+function init_replies_data(db) {
+    return new Promise(function(resolve, reject) {
+        const thread_id = 1
+
+        var replies_transaction = db.transaction("replies", "readwrite")
+        var replies_object_store = replies_transaction.objectStore("replies")
+        var get_cursor_request = replies_object_store.openCursor()
+
+        var replies_data = []
+        get_cursor_request.onsuccess = function (e) {
+            const cursor = e.target.result;
+            if (cursor) {
+                if (cursor.value["thread_id"] == thread_id) {
+                    replies_data.push(cursor.value)
+                }
+                cursor.continue();
+            }
+            resolve(replies_data)
+        }
+    })
+}
+
+function init_thread_data(db) {
+    return new Promise(function(resolve, reject) {
+        const thread_id = 1
+        var threads_transaction = db.transaction("threads", "readwrite")
+        var threads_object_store = threads_transaction.objectStore("threads")
+
+        var get_thread_request = threads_object_store.get(thread_id)
+
+        get_thread_request.onsuccess = function(event) {
+            resolve(event.target.result)
+        };
+    })
+}
+
+async function init_thread_layout(){
+    const forum_url_json = "../../db/forum.json"
+    const json_content = await init_forum_json(forum_url_json)
+
+    var db = await init_thread_database()
+
+    var replies_data = await init_replies_data(db)
+    var thread_data = await init_thread_data(db)    
+
+    new Thread(thread_data, replies_data)
+}
+
+init_thread_layout()
