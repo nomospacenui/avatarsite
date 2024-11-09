@@ -1,5 +1,7 @@
 class Post {
-    constructor() {
+    constructor(post_data) {
+        this._post_data = post_data
+
         var content_container = document.getElementById("content")
 
         content_container.appendChild(this.create_actions())
@@ -83,7 +85,7 @@ class Post {
 
         var post_body = document.createElement("div")
         post_body.className = "postwin-body"
-        post_body.innerHTML = "Body"
+        post_body.innerHTML = this._post_data["content"]
 
         post_win.appendChild(post_header)
         post_win.appendChild(post_body)
