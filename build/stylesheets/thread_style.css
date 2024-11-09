@@ -5,7 +5,7 @@ body {
   font-family: Arial;
 }
 
-.button, .button-accent {
+.button, .pagebutton, .button-accent {
   border-radius: 5px;
   background: #69ACA8;
   box-shadow: inset 0px 4px 6px 0px rgba(210, 255, 250, 0.3764705882);
@@ -19,7 +19,7 @@ body {
   cursor: pointer;
 }
 
-.button:hover, .button-accent:hover {
+.button:hover, .pagebutton:hover, .button-accent:hover {
   background: #5e92a1;
   box-shadow: inset 0px 4px 6px 0px rgba(155, 213, 228, 0.3764705882);
 }
@@ -47,6 +47,31 @@ body {
   padding-left: 32px;
   padding-bottom: 0px;
   width: 100%;
+}
+
+.pagebutton {
+  padding: 4px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 0px;
+}
+
+.pagebuttons {
+  display: table-row;
+  width: 100%;
+}
+
+.pagebuttons-space {
+  display: table-cell;
+  width: 15%;
+  min-width: 180px;
+}
+
+.pagebuttonscontainer {
+  display: inline-block;
+  float: right;
+  padding-right: 48px;
+  padding-bottom: 24px;
 }
 
 /*# sourceMappingURL=thread_style.css.map */

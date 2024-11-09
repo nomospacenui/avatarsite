@@ -13,3 +13,29 @@
     padding-bottom: 0px;
     width: 100%
 }
+
+.pagebutton {
+    @extend .button;
+    padding: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 0px;
+}
+
+.pagebuttons {
+    display: table-row;
+    width: 100%;
+}
+
+.pagebuttons-space {
+    display: table-cell;
+    width: 15%;
+    min-width: 180px;
+}
+
+.pagebuttonscontainer {
+    display: inline-block;
+    float: right;
+    padding-right: 48px;
+    padding-bottom: 24px;
+}

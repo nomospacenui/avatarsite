@@ -82,9 +82,9 @@ function init_replies_data(db, page) {
                 if (page == 1) {
                     end_reply - 1
                 }
-                replies_data = replies_data.slice(start_reply, end_reply)
 
-                resolve(replies_data)
+                const num_pages = Math.round(Number((replies_data.length / replies_per_page) + 0.5))
+                resolve([replies_data.slice(start_reply, end_reply), num_pages])
             }
         }
     })
@@ -115,12 +115,12 @@ async function init_thread_layout(page){
     var db = await init_thread_database(json_content)
 
     var thread_data = await init_thread_data(db)    
-    var replies_data = await init_replies_data(db, page)
+    var [replies_data, num_pages] = await init_replies_data(db, page)
     if (replies_data == -1) {
         return false
     }
 
-    new Thread(thread_data, replies_data, page)
+    new Thread(thread_data, replies_data, page, num_pages)
     return true
 }
 
