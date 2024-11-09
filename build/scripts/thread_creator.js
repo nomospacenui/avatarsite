@@ -12,7 +12,7 @@ function init_forum_json(forum_json_url) {
     })
 }
 
-function init_thread_database(){
+function init_thread_database(json_content){
     return new Promise(function(resolve, reject) {
         //command for resetting: indexedDB.deleteDatabase('forum')
         var request  = indexedDB.open("forum", 1)
@@ -90,7 +90,7 @@ async function init_thread_layout(){
     const forum_url_json = "../../db/forum.json"
     const json_content = await init_forum_json(forum_url_json)
 
-    var db = await init_thread_database()
+    var db = await init_thread_database(json_content)
 
     var replies_data = await init_replies_data(db)
     var thread_data = await init_thread_data(db)    
