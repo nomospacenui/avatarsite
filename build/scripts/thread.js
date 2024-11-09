@@ -1,7 +1,7 @@
 import Post from "./post.js"
 
 class Thread {
-    constructor(thread_data, replies_data) {
+    constructor(thread_data, replies_data, page) {
         var page_title = document.getElementById("page_title")
         page_title.innerHTML = "Title"
         var content_container = document.getElementById("content")
@@ -24,8 +24,10 @@ class Thread {
         content_container.appendChild(thread_header)
 
         // First post by the thread author
-        const post_data = {content: thread_data["content"]}
-        new Post(post_data)
+        if (page == 1) {
+            const post_data = {content: thread_data["content"]}
+            new Post(post_data)
+        }
 
         // Subsequent replies
         for (var i = 0 ; i < replies_data.length ; ++i) {
