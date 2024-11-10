@@ -55,7 +55,7 @@ class Thread {
             }
         }
         
-        function create_page_button_elements(page) {
+        function create_page_button_elements(page, display_text) {
             const report_thread_button = document.createElement("button")
             if (page == url_vars["page"]) {
                 report_thread_button.className = "pagebutton-accent"
@@ -63,12 +63,25 @@ class Thread {
             else {
                 report_thread_button.className = "pagebutton"
             }
-            report_thread_button.innerHTML = page
-            report_thread_button.onclick = function() {click_page_button(report_thread_button.innerHTML, url_vars)}
+            report_thread_button.innerHTML = display_text
+            report_thread_button.onclick = function() {click_page_button(page, url_vars)}
             thread_page_buttons_container.appendChild(report_thread_button)
         }
         
-        page_button_list.forEach((page) => create_page_button_elements(page))
+        var thread_page_counter = document.createElement("div")
+        thread_page_counter.innerHTML = "Page " + url_vars["page"] + " out of " + non_url_vars["num_pages"]
+        thread_page_counter.className = "pagebuttoncounter"
+        thread_page_buttons_container.appendChild(thread_page_counter)
+        
+        if (!page_button_list.includes(1)) {
+            create_page_button_elements(1, "First")
+        }
+        
+        page_button_list.forEach((page) => create_page_button_elements(page, page))
+        
+        if (!page_button_list.includes(non_url_vars["num_pages"])) {
+            create_page_button_elements(non_url_vars["num_pages"], "Last")
+        }
 
         content_container.appendChild(thread_page_buttons)
 

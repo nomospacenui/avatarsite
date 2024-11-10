@@ -18,9 +18,9 @@
     @extend .button;
     font-size: 12px;
     padding: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
     border-radius: 0px;
-    height: 26px;
-    width: 28px;
 }
 
 .pagebutton-accent {
@@ -44,4 +44,10 @@
     float: right;
     padding-right: 48px;
     padding-bottom: 24px;
+}
+
+.pagebuttoncounter {
+    display: inline-block;
+    padding: 8px;
+    font-size: 12px;
 }

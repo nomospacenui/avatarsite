@@ -52,9 +52,9 @@ body {
 .pagebutton, .pagebutton-accent {
   font-size: 12px;
   padding: 4px;
+  padding-left: 8px;
+  padding-right: 8px;
   border-radius: 0px;
-  height: 26px;
-  width: 28px;
 }
 
 .pagebuttons {
@@ -73,6 +73,12 @@ body {
   float: right;
   padding-right: 48px;
   padding-bottom: 24px;
+}
+
+.pagebuttoncounter {
+  display: inline-block;
+  padding: 8px;
+  font-size: 12px;
 }
 
 /*# sourceMappingURL=thread_style.css.map */
