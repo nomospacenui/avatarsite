@@ -16,6 +16,8 @@
 
 .pagebutton {
     @extend .button;
+    display: inline-block;
+    position: relative;
     font-size: 12px;
     padding: 4px;
     padding-left: 8px;
@@ -23,9 +25,24 @@
     border-radius: 0px;
 }
 
-.pagebutton-accent {
-    @extend .button-accent;
+.pagejumpbutton {
     @extend .pagebutton;
+    top: -1px;
+    height: 14px
+}
+
+.pagebutton-accent {
+    @extend .pagebutton;
+    background: #9a9ba0;
+    box-shadow: inset 0px 4px 6px 0px #d5d6d8b6;
+    border: 1px solid #6f6c75;
+}
+
+.pagebutton-accent:hover {
+    @extend .pagebutton;
+    background: #797a7e;
+    box-shadow: inset 0px 4px 6px 0px #b9babdb6;
+    border: 1px solid #58555e;
 }
 
 .pagebuttons {
@@ -50,4 +67,16 @@
     display: inline-block;
     padding: 8px;
     font-size: 12px;
+}
+
+.pagebuttonjumpinput{
+    visibility: hidden;
+    position: absolute;
+    padding: 8px;
+    margin: 8px;
+    font-size: 12px;
+    height: 6px;
+    width: 74px;
+    left: -45px;
+    top: -40px;
 }

@@ -1,7 +1,7 @@
-function click_page_button(page_num, url_vars) {
+function go_to_page(new_page, current_page) {
     var url = String(window.location.href)
-    url = url.replace("page=" + url_vars["page"], "page=" + page_num)
+    url = url.replace("page=" + current_page, "page=" + new_page)
     window.location.replace(url);
 }
 
-export default click_page_button
+export default go_to_page
