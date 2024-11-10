@@ -52,8 +52,8 @@ function init_thread_database(json_content){
 
 function init_replies_data(db, url_vars, non_url_vars) {
     return new Promise(function(resolve, reject) {
-        const thread_id = 1
-        const replies_per_page = 1
+        const thread_id = url_vars["thread"]
+        const replies_per_page = 8
 
         var replies_transaction = db.transaction("replies", "readwrite")
         var replies_object_store = replies_transaction.objectStore("replies")
@@ -96,9 +96,9 @@ function init_replies_data(db, url_vars, non_url_vars) {
     })
 }
 
-function init_thread_data(db) {
+function init_thread_data(db, url_vars, non_url_vars) {
     return new Promise(function(resolve, reject) {
-        const thread_id = 1
+        const thread_id = url_vars["thread"]
         var threads_transaction = db.transaction("threads", "readwrite")
         var threads_object_store = threads_transaction.objectStore("threads")
 
@@ -122,7 +122,7 @@ async function init_thread_layout(url_vars){
 
     var db = await init_thread_database(json_content)
 
-    var thread_data = await init_thread_data(db)    
+    var thread_data = await init_thread_data(db, url_vars, non_url_vars)    
     var [replies_data, non_url_vars] = await init_replies_data(db, url_vars, non_url_vars)
     if (replies_data == -1) {
         return false

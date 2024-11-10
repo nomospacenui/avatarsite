@@ -11,7 +11,10 @@ class Thread {
 
         var content_container = document.getElementById("content")
         content_container.appendChild(this.create_header())
-        content_container.appendChild(this.create_page_navigation())
+
+        if (non_url_vars["num_pages"] > 1) {
+            content_container.appendChild(this.create_page_navigation())
+        }
 
         // First post by the thread author
         if (url_vars["page"] == 1) {
