@@ -50,10 +50,10 @@ function init_thread_database(json_content){
     })
 }
 
-function init_replies_data(db, page) {
+function init_replies_data(db, url_vars, non_url_vars) {
     return new Promise(function(resolve, reject) {
         const thread_id = 1
-        const replies_per_page = 8
+        const replies_per_page = 1
 
         var replies_transaction = db.transaction("replies", "readwrite")
         var replies_object_store = replies_transaction.objectStore("replies")
@@ -72,19 +72,25 @@ function init_replies_data(db, page) {
             else{
                 // page - 1 as page is counted from 1 onwards
                 // if page is 1, then the thread's initial post takes up one slot
-                const start_reply = replies_per_page * (page-1)
-                const end_reply = start_reply + replies_per_page
+                var start_reply = replies_per_page * (url_vars["page"]-1)
+                var end_reply = start_reply + replies_per_page
 
                 if (start_reply > replies_data.length) {
-                    resolve(-1)
+                    resolve([-1, url_vars])
                 }
 
-                if (page == 1) {
-                    end_reply - 1
+                if (url_vars["page"] == 1) {
+                    --end_reply
                 }
 
-                const num_pages = Math.round(Number((replies_data.length / replies_per_page) + 0.5))
-                resolve([replies_data.slice(start_reply, end_reply), num_pages])
+                else {
+                    // shift up by one since the first page displays (replies_per_page -1) replies
+                    --start_reply
+                    --end_reply
+                }
+
+                non_url_vars["num_pages"] = Math.round(Number((replies_data.length / replies_per_page) + 0.5))
+                resolve([replies_data.slice(start_reply, end_reply), non_url_vars])
             }
         }
     })
@@ -104,10 +110,12 @@ function init_thread_data(db) {
     })
 }
 
-async function init_thread_layout(page){
-    if (page == -1) {
+async function init_thread_layout(url_vars){
+    if (!"page" in url_vars) {
         return false
     }
+
+    var non_url_vars = {}
 
     const forum_url_json = "../../db/forum.json"
     const json_content = await init_forum_json(forum_url_json)
@@ -115,30 +123,40 @@ async function init_thread_layout(page){
     var db = await init_thread_database(json_content)
 
     var thread_data = await init_thread_data(db)    
-    var [replies_data, num_pages] = await init_replies_data(db, page)
+    var [replies_data, non_url_vars] = await init_replies_data(db, url_vars, non_url_vars)
     if (replies_data == -1) {
         return false
     }
 
-    new Thread(thread_data, replies_data, page, num_pages)
+    new Thread(thread_data, replies_data, url_vars, non_url_vars)
     return true
 }
 
-function get_page_from_url(){
+function get_vars_from_url(){
     var url = String(window.location.href)
     url = url.substring(url.lastIndexOf("?") + 1)
     
-    const page_value = url.split("=")
-    //split should give: [page, value]
-    if (page_value[0] != "page" || !Number.isInteger(Number(page_value[1]))) {
-        return -1
+    const url_vars_values = url.split("&")
+
+    var url_vars = {}
+    for (var i = 0 ; i < url_vars_values.length ; ++i) {
+        const var_value = url_vars_values[i].split("=")
+        url_vars[var_value[0]] = var_value[1]
     }
 
-    return page_value[1]
+    if ("page" in url_vars) {
+        url_vars["page"] = Number(url_vars["page"])
+    }
+    
+    if ("thread" in url_vars) {
+        url_vars["thread"] = Number(url_vars["thread"])
+    }
+
+    return url_vars
 }
 
-const page = get_page_from_url()
-const status = await init_thread_layout(page)
+const url_vars = get_vars_from_url()
+const status = await init_thread_layout(url_vars)
 if (status){
     console.log("Initialized")
 }

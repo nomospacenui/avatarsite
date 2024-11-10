@@ -5,7 +5,7 @@ body {
   font-family: Arial;
 }
 
-.button, .pagebutton, .button-accent {
+.button, .pagebutton, .pagebutton-accent, .button-accent {
   border-radius: 5px;
   background: #69ACA8;
   box-shadow: inset 0px 4px 6px 0px rgba(210, 255, 250, 0.3764705882);
@@ -19,18 +19,18 @@ body {
   cursor: pointer;
 }
 
-.button:hover, .pagebutton:hover, .button-accent:hover {
+.button:hover, .pagebutton:hover, .pagebutton-accent:hover, .button-accent:hover {
   background: #5e92a1;
   box-shadow: inset 0px 4px 6px 0px rgba(155, 213, 228, 0.3764705882);
 }
 
-.button-accent {
+.button-accent, .pagebutton-accent {
   background: #7F8FC7;
   box-shadow: inset 0px 4px 6px 0px rgba(160, 186, 225, 0.7137254902);
   border: 1px solid #79629E;
 }
 
-.button-accent:hover {
+.button-accent:hover, .pagebutton-accent:hover {
   background: #7574b8;
   box-shadow: inset 0px 4px 6px 0px rgba(139, 161, 209, 0.5607843137);
 }
@@ -49,11 +49,12 @@ body {
   width: 100%;
 }
 
-.pagebutton {
+.pagebutton, .pagebutton-accent {
+  font-size: 12px;
   padding: 4px;
-  padding-left: 8px;
-  padding-right: 8px;
   border-radius: 0px;
+  height: 26px;
+  width: 28px;
 }
 
 .pagebuttons {

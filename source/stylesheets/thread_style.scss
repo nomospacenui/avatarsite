@@ -16,10 +16,16 @@
 
 .pagebutton {
     @extend .button;
+    font-size: 12px;
     padding: 4px;
-    padding-left: 8px;
-    padding-right: 8px;
     border-radius: 0px;
+    height: 26px;
+    width: 28px;
+}
+
+.pagebutton-accent {
+    @extend .button-accent;
+    @extend .pagebutton;
 }
 
 .pagebuttons {
