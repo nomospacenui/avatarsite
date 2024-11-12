@@ -39,6 +39,7 @@ body {
   font-family: Arial;
   font-size: 24px;
   font-weight: bold;
+  padding-top: 12px;
   padding-bottom: 12px;
 }
 
@@ -46,7 +47,14 @@ body {
   padding: 12px;
   padding-left: 32px;
   padding-bottom: 0px;
-  width: 100%;
+  width: 96%;
+}
+
+.threadfooter {
+  padding: 12px;
+  padding-left: 32px;
+  padding-bottom: 0px;
+  width: 96%;
 }
 
 .pagebutton, .pagebutton-accent:hover, .pagebutton-accent, .pagejumpbutton {

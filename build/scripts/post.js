@@ -2,17 +2,17 @@ class Post {
     constructor(post_data) {
         this._post_data = post_data
 
-        var content_container = document.getElementById("content")
+        var postcontent_container = document.getElementById("post_contentbox")
 
-        content_container.appendChild(this.create_actions())
+        postcontent_container.appendChild(this.create_actions())
 
         var bulk = document.createElement("div")
         bulk.className = "postbulk"
         bulk.appendChild(this.create_user())
         bulk.appendChild(this.create_win())
-        content_container.appendChild(bulk)
+        postcontent_container.appendChild(bulk)
 
-        content_container.appendChild(this.create_signature())
+        postcontent_container.appendChild(this.create_signature())
     }
 
     create_actions() {

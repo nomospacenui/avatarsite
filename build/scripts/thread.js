@@ -3,18 +3,19 @@ import inclusive_range from "./utils.js"
 import go_to_page from "./page_button.js"
 
 class Thread {
-    constructor(thread_data, replies_data, url_vars, non_url_vars) {
+    constructor(thread_data, replies_data, subforums_data, url_vars, non_url_vars) {
+        this._thread_data = thread_data
+        this._replies_data = replies_data
+        this._subforums_data = subforums_data
         this._url_vars = url_vars
         this._non_url_vars = non_url_vars
 
         this._max_page_nav_len = 3
 
-        var content_container = document.getElementById("content")
-        content_container.appendChild(this.create_header())
+        var headercontent_container = document.getElementById("header_contentbox")
+        headercontent_container.appendChild(this.create_header())
 
-        if (non_url_vars["num_pages"] > 1) {
-            content_container.appendChild(this.create_page_navigation())
-        }
+        var postcontent_container = document.getElementById("post_contentbox")
 
         // First post by the thread author
         if (url_vars["page"] == 1) {
@@ -26,6 +27,24 @@ class Thread {
         for (var i = 0 ; i < replies_data.length ; ++i) {
             new Post(replies_data[i])
         }
+        
+        var footercontent_container = document.getElementById("footer_contentbox")
+        footercontent_container.appendChild(this.create_footer())
+    }
+
+    get_breadcrumbs() {
+        //database should already be sorted in ascending order so directly accessing the element is possible
+        var current = this._subforums_data[this._thread_data["subforum_id"]]
+        var breadcrumbs = [current["name"]]
+
+        while (current["parent_id"] != -1) {
+            current = this._subforums_data[current["parent_id"]]
+            breadcrumbs.push(current["name"])
+        }
+        
+        var breadcrumbs_str = ""
+        breadcrumbs.reverse().forEach(x => breadcrumbs_str = breadcrumbs_str + x + " > ")
+        return breadcrumbs_str.slice(0, breadcrumbs_str.length - 2)
     }
 
     create_header() {
@@ -34,6 +53,11 @@ class Thread {
         
         var thread_header = document.createElement("div")
         thread_header.className = "threadheader"
+        
+        var thread_breadcrumbs = document.createElement("div")
+        thread_breadcrumbs.innerHTML = this.get_breadcrumbs()
+        
+        thread_header.appendChild(thread_breadcrumbs)
         
         var thread_title = document.createElement("div")
         thread_title.className = "threadtitle"
@@ -46,7 +70,22 @@ class Thread {
         report_thread_button.innerHTML = "Report Thread"
         
         thread_header.appendChild(report_thread_button)
+
+        if (this._non_url_vars["num_pages"] > 1) {
+            thread_header.appendChild(this.create_page_navigation())
+        }
+
         return thread_header
+    }
+
+    create_footer() {
+        var thread_footer = document.createElement("div")
+        thread_footer.className = "threadheader"
+
+        if (this._non_url_vars["num_pages"] > 1) {
+            thread_footer.appendChild(this.create_page_navigation())
+        }
+        return thread_footer
     }
 
     create_page_navigation() {

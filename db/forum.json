@@ -38,53 +38,108 @@
             "rows": [
                 [
                     1,
-                    1,
+                    0,
                     "Do what you love and love what you do"
                 ],
                 [
                     2,
-                    1,
+                    0,
                     "Drag is fun so dont drag your <i>dream<\/i>"
                 ],
                 [
                     3,
-                    1,
+                    0,
                     "lead with love and <b>slay<\/b> the scene"
                 ],
                 [
                     4,
-                    2,
+                    1,
                     "This should not appear in thread 1"
                 ],
                 [
                     5,
-                    1,
+                    0,
                     "Bump 1"
                 ],
                 [
                     6,
-                    1,
+                    0,
                     "Bump 2"
                 ],
                 [
                     7,
-                    1,
+                    0,
                     "Bump 3"
                 ],
                 [
                     8,
-                    1,
+                    0,
                     "Bump 4"
                 ],
                 [
                     9,
-                    1,
+                    0,
                     "Bump 5"
                 ],
                 [
                     10,
-                    1,
+                    0,
                     "Bump 6"
+                ]
+            ]
+        },
+        {
+            "type": "table",
+            "database": null,
+            "name": "subforums",
+            "withoutRowId": false,
+            "strict": false,
+            "ddl": "CREATE TABLE subforums (id INTEGER PRIMARY KEY, name TEXT, parent_id INTEGER)",
+            "columns": [
+                {
+                    "name": "id",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "PRIMARY KEY",
+                            "definition": "PRIMARY KEY"
+                        }
+                    ]
+                },
+                {
+                    "name": "name",
+                    "type": "TEXT"
+                },
+                {
+                    "name": "parent_id",
+                    "type": "INTEGER"
+                }
+            ],
+            "rows": [
+                [
+                    0,
+                    "Administrative",
+                    -1
+                ],
+                [
+                    1,
+                    "Announcements",
+                    0
+                ],
+                [
+                    2,
+                    "Feedback",
+                    0
+                ],
+                [
+                    3,
+                    "Feature Suggestions",
+                    3
+                ],
+                [
+                    4,
+                    "Bug Reports",
+                    3
                 ]
             ]
         },
@@ -94,7 +149,7 @@
             "name": "threads",
             "withoutRowId": false,
             "strict": false,
-            "ddl": "CREATE TABLE threads (id INTEGER PRIMARY KEY, content TEXT)",
+            "ddl": "CREATE TABLE threads (id INTEGER PRIMARY KEY, content TEXT, subforum_id INTEGER)",
             "columns": [
                 {
                     "name": "id",
@@ -109,16 +164,27 @@
                 {
                     "name": "content",
                     "type": "TEXT"
+                },
+                {
+                    "name": "subforum_id",
+                    "type": "INTEGER"
                 }
             ],
             "rows": [
                 [
+                    0,
+                    "Hold up <b>wait<\/b> let me add my 2",
+                    2
+                ],
+                [
                     1,
-                    "Hold up <b>wait<\/b> let me add my 2"
+                    "Nothing",
+                    3
                 ],
                 [
                     2,
-                    "Nothing"
+                    "TESTING",
+                    4
                 ]
             ]
         }

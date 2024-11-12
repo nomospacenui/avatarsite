@@ -12,7 +12,7 @@ function init_forum_json(forum_json_url) {
     })
 }
 
-function init_thread_database(json_content){
+function init_forum_database(json_content){
     return new Promise(function(resolve, reject) {
         //command for resetting: indexedDB.deleteDatabase('forum')
         var request  = indexedDB.open("forum", 1)
@@ -66,7 +66,7 @@ function init_replies_data(db, url_vars, non_url_vars) {
                 if (cursor.value["thread_id"] == thread_id) {
                     replies_data.push(cursor.value)
                 }
-                cursor.continue();
+                cursor.continue()
             }
 
             else{
@@ -110,6 +110,27 @@ function init_thread_data(db, url_vars, non_url_vars) {
     })
 }
 
+function init_subforums_data(db) {
+    return new Promise(function(resolve, reject) {
+        var subforums_transaction = db.transaction("subforums", "readwrite")
+        var subforums_object_store = subforums_transaction.objectStore("subforums")
+        var get_cursor_request = subforums_object_store.openCursor()
+        
+        var subforums_data = []
+        get_cursor_request.onsuccess = function(e) {
+            const cursor = e.target.result;
+            if (cursor) {
+                subforums_data.push(cursor.value)
+                cursor.continue()
+            }
+
+            else {
+                resolve(subforums_data)
+            }
+        }
+    })
+}
+
 async function init_thread_layout(url_vars){
     if (!"page" in url_vars) {
         return false
@@ -120,20 +141,25 @@ async function init_thread_layout(url_vars){
     const forum_url_json = "../../db/forum.json"
     const json_content = await init_forum_json(forum_url_json)
 
-    var db = await init_thread_database(json_content)
+    var db = await init_forum_database(json_content)
 
-    var thread_data = await init_thread_data(db, url_vars, non_url_vars)    
+    const thread_data = await init_thread_data(db, url_vars, non_url_vars)
     var [replies_data, non_url_vars] = await init_replies_data(db, url_vars, non_url_vars)
     if (replies_data == -1) {
         return false
     }
 
-    new Thread(thread_data, replies_data, url_vars, non_url_vars)
+    const subforums_data = await init_subforums_data(db)
+
+    new Thread(thread_data, replies_data, subforums_data, url_vars, non_url_vars)
     return true
 }
 
 function get_vars_from_url(){
     var url = String(window.location.href)
+    if (url.split("?").length > 2) {
+        console.log("Multiple ? in the url")
+    }
     url = url.substring(url.lastIndexOf("?") + 1)
     
     const url_vars_values = url.split("&")
@@ -155,8 +181,10 @@ function get_vars_from_url(){
     return url_vars
 }
 
+var status = 1
 const url_vars = get_vars_from_url()
-const status = await init_thread_layout(url_vars)
+status = await init_thread_layout(url_vars)
+
 if (status){
     console.log("Initialized")
 }
