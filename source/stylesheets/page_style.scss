@@ -1,0 +1,117 @@
+body {
+    color:#555555;
+    background-image: url('../../assets/images/backgrounds/space.png');
+    background-size: cover;
+    font-family: Arial;
+}
+
+.page-scaling {
+    width: 65%;
+    min-width: 900px;
+}
+
+.page-header {
+    @extend .page-scaling;
+    height: 200px;
+}
+
+.page-footer {
+    @extend .page-scaling;
+    height: 200px;
+}
+
+.miniwin-header {
+    position: relative;
+    margin:auto;
+    border-radius: 5px;
+    background: #BD8ABE;
+    color:#ffffff;
+    padding: 6px;
+    border: 1px solid #7D528C;
+    box-shadow: inset 0px 4px 6px 0px #E2B0DD;
+    z-index: 1;
+    font-size: 14px;
+}
+
+.miniwin-body {
+    position: relative;
+    margin: auto;
+    margin-top:-8px;
+    border-radius: 5px;
+    background: #EAE2F5;
+    color:#555555;
+    padding: 18px;
+    padding-top: 24px;
+    border: 1px solid #BD8ABE;
+    box-shadow: 0px 4px 4px 0px #7d528c31;
+}
+
+.contentbox-header {
+    @extend .miniwin-header;
+    @extend .page-scaling;
+    font-size: 16px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 25px;
+    padding-right: 25px;
+    border-radius: 8px;
+}
+
+.contentbox-body {
+    @extend .page-scaling;
+    position: relative;
+    display: table;
+    margin:auto;
+    margin-top:-15px;
+    background: #dad0e7cb;
+    padding: 25px;
+    border-spacing: 5px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 4px 0px #583a6331;
+}
+
+.button {
+    border-radius: 5px;
+    background: #69ACA8;
+    box-shadow: inset 0px 4px 6px 0px #d2fffa60;
+    border: 1px solid #427C9C;
+    color:#ffffff;
+    padding: 6px;
+    padding-left: 14px;
+    padding-right: 14px;
+    transition-duration: 0.3s;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background: #5e92a1;
+    box-shadow: inset 0px 4px 6px 0px #9bd5e460;
+}
+
+.button-accent {
+    @extend .button;
+    background: #7F8FC7;
+    box-shadow: inset 0px 4px 6px 0px #a0bae1b6;
+    border: 1px solid #79629E;
+}
+
+.button-accent:hover {
+    background: #7574b8;
+    box-shadow: inset 0px 4px 6px 0px #8ba1d18f;
+}
+
+.nav-button {
+    @extend .button;
+    font-size: 16px;
+    border: 0px solid #7D528C;
+    border-right: 1px solid #7D528C;
+    box-shadow: inset 0px 4px 6px 0px #E2B0DD;
+    background: #BD8ABE;
+    border-radius: 0px;
+}
+
+.nav-button:hover {
+    box-shadow: inset 0px 4px 6px 0px #c399c7;
+    background: #9e77b1;
+}

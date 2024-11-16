@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<link rel="stylesheet" href="../stylesheets/page_style.css">
 <link rel="stylesheet" href="../stylesheets/thread_style.css">
 <link rel="stylesheet" href="../stylesheets/post_style.css">
 
@@ -8,14 +9,19 @@
 </title>
 
 <body>
+<script type="module" src="../scripts/page.js"></script>
 <script type="module" src="../scripts/thread_creator.js"></script>
 
-<div id="contentbox" class="contentbox">
+<div id="page-header" class="page-header"></div>
+
+<div id="contentbox-header" class="contentbox-header"></div>
+<div id="contentbox-body" class="contentbox-body">
     <div id="header_contentbox" class="threadheader"></div>
     <div id="body_contentbox" class="threadbody"></div>
     <div id="footer_contentbox"  class="threadfooter"></div>
 </div>
 
+<div id="page-footer" class="page-footer"></div>
 </body>
 
 </html>
