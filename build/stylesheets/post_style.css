@@ -35,16 +35,6 @@ body {
   box-shadow: inset 0px 4px 6px 0px rgba(139, 161, 209, 0.5607843137);
 }
 
-.contentbox {
-  display: table;
-  margin: auto;
-  background: rgba(218, 208, 231, 0.7960784314);
-  padding: 25px;
-  min-width: 900px;
-  width: 65%;
-  border-spacing: 5px;
-}
-
 .miniwin-header, .postwin-header {
   position: relative;
   margin: auto;

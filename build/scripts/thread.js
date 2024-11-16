@@ -12,10 +12,7 @@ class Thread {
 
         this._max_page_nav_len = 3
 
-        var headercontent_container = document.getElementById("header_contentbox")
-        headercontent_container.appendChild(this.create_header())
-
-        var postcontent_container = document.getElementById("post_contentbox")
+        this.create_header()
 
         // First post by the thread author
         if (url_vars["page"] == 1) {
@@ -27,9 +24,8 @@ class Thread {
         for (var i = 0 ; i < replies_data.length ; ++i) {
             new Post(replies_data[i])
         }
-        
-        var footercontent_container = document.getElementById("footer_contentbox")
-        footercontent_container.appendChild(this.create_footer())
+
+        this.create_footer()
     }
 
     get_breadcrumbs() {
@@ -51,35 +47,40 @@ class Thread {
         var page_title = document.getElementById("page_title")
         page_title.innerHTML = "Title"
         
-        var thread_header = document.createElement("div")
-        thread_header.className = "threadheader"
+        var thread_header = document.getElementById("header_contentbox")
         
+        var thread_header_left = document.createElement("div")
+        thread_header_left.className = "threadheader-left"
+
         var thread_breadcrumbs = document.createElement("div")
         thread_breadcrumbs.innerHTML = this.get_breadcrumbs()
-        
-        thread_header.appendChild(thread_breadcrumbs)
+        thread_header_left.appendChild(thread_breadcrumbs)
         
         var thread_title = document.createElement("div")
         thread_title.className = "threadtitle"
         thread_title.innerHTML = "Thread Title"
-
-        thread_header.appendChild(thread_title)
+        thread_header_left.appendChild(thread_title)
         
         var report_thread_button = document.createElement("button")
         report_thread_button.className = "button-accent"
         report_thread_button.innerHTML = "Report Thread"
-        
-        thread_header.appendChild(report_thread_button)
+        thread_header_left.appendChild(report_thread_button)
+
+        var thread_header_right = document.createElement("div")
+        thread_header_right.className = "threadheader-right"
 
         if (this._non_url_vars["num_pages"] > 1) {
-            thread_header.appendChild(this.create_page_navigation())
+            thread_header_right.appendChild(this.create_page_navigation())
         }
+        
+        thread_header.appendChild(thread_header_left)
+        thread_header.appendChild(thread_header_right)
 
         return thread_header
     }
 
     create_footer() {
-        var thread_footer = document.createElement("div")
+        var thread_footer = document.getElementById("footer_contentbox")
         thread_footer.className = "threadheader"
 
         if (this._non_url_vars["num_pages"] > 1) {
@@ -159,6 +160,11 @@ class Thread {
             const b = this.create_page_navigation_button(current_page + 1, ">")
             thread_page_buttons_container.appendChild(b)
         }
+        
+        var thread_reply_button = document.createElement("button")
+        thread_reply_button.className = "replybutton"
+        thread_reply_button.innerHTML = "Reply"
+        thread_page_buttons_container.appendChild(thread_reply_button)
 
         return thread_page_buttons
     }

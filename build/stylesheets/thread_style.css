@@ -5,7 +5,7 @@ body {
   font-family: Arial;
 }
 
-.button, .pagebutton, .pagejumpbutton, .pagebutton-accent, .pagebutton-accent:hover, .button-accent {
+.button, .pagebutton, .pagejumpbutton, .pagebutton-accent, .pagebutton-accent:hover, .button-accent, .replybutton {
   border-radius: 5px;
   background: #69ACA8;
   box-shadow: inset 0px 4px 6px 0px rgba(210, 255, 250, 0.3764705882);
@@ -19,35 +19,62 @@ body {
   cursor: pointer;
 }
 
-.button:hover, .pagebutton:hover, .pagejumpbutton:hover, .pagebutton-accent:hover, .button-accent:hover {
+.button:hover, .pagebutton:hover, .pagejumpbutton:hover, .pagebutton-accent:hover, .button-accent:hover, .replybutton:hover {
   background: #5e92a1;
   box-shadow: inset 0px 4px 6px 0px rgba(155, 213, 228, 0.3764705882);
 }
 
-.button-accent {
+.button-accent, .replybutton {
   background: #7F8FC7;
   box-shadow: inset 0px 4px 6px 0px rgba(160, 186, 225, 0.7137254902);
   border: 1px solid #79629E;
 }
 
-.button-accent:hover {
+.button-accent:hover, .replybutton:hover {
   background: #7574b8;
   box-shadow: inset 0px 4px 6px 0px rgba(139, 161, 209, 0.5607843137);
+}
+
+.contentbox {
+  display: table;
+  margin: auto;
+  background: rgba(218, 208, 231, 0.7960784314);
+  padding: 25px;
+  min-width: 900px;
+  width: 65%;
+  border-spacing: 5px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 4px 0px rgba(125, 82, 140, 0.1921568627);
 }
 
 .threadtitle {
   font-family: Arial;
   font-size: 24px;
   font-weight: bold;
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding-top: 24px;
+  padding-bottom: 18px;
 }
 
-.threadheader {
+.threadheader, .threadfooter {
+  display: inline-block;
   padding: 12px;
   padding-left: 32px;
   padding-bottom: 0px;
   width: 96%;
+}
+
+.threadbody {
+  padding-top: 18px;
+}
+
+.threadheader-left {
+  display: inline-block;
+  width: 50%;
+}
+
+.threadheader-right {
+  display: inline-block;
+  width: 50%;
 }
 
 .threadfooter {
@@ -70,6 +97,20 @@ body {
 .pagejumpbutton {
   top: -1px;
   height: 14px;
+}
+
+.replybutton {
+  margin: 12px;
+  font-size: 14px;
+  border: 1px solid #7D528C;
+  box-shadow: inset 0px 4px 6px 0px #E2B0DD;
+  background: #BD8ABE;
+}
+
+.replybutton:hover {
+  border: 1px solid #5a4070;
+  box-shadow: inset 0px 4px 6px 0px #cda2d1;
+  background: #9e77b1;
 }
 
 .pagebutton-accent {
@@ -98,7 +139,6 @@ body {
 .pagebuttonscontainer {
   display: inline-block;
   float: right;
-  padding-right: 48px;
   padding-bottom: 24px;
 }
 

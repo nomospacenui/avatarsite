@@ -1,18 +1,49 @@
 @use "style";
 
+.contentbox {
+    display: table;
+    margin:auto;
+    background: #dad0e7cb;
+    padding: 25px;
+    min-width: 900px;
+    width: 65%;
+    border-spacing: 5px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 4px 0px #583a6331;
+}
+
 .threadtitle {
     font-family: Arial;
     font-size:  24px;
     font-weight: bold;
-    padding-bottom: 12px;
-    padding-bottom: 12px;
+    padding-top: 24px;
+    padding-bottom: 18px;
 }
 
 .threadheader {
+    display: inline-block;
     padding: 12px;
     padding-left: 32px;
     padding-bottom: 0px;
-    width: 96%
+    width: 96%;
+}
+
+.threadbody {
+    padding-top: 18px;
+}
+
+.threadfooter {
+    @extend .threadheader;
+}
+
+.threadheader-left {
+    display: inline-block;
+    width: 50%;
+}
+
+.threadheader-right {
+    display: inline-block;
+    width: 50%;
 }
 
 .threadfooter {
@@ -37,6 +68,21 @@
     @extend .pagebutton;
     top: -1px;
     height: 14px
+}
+
+.replybutton {
+    @extend .button-accent;
+    margin: 12px;
+    font-size: 14px;
+    border: 1px solid #7D528C;
+    box-shadow: inset 0px 4px 6px 0px #E2B0DD;
+    background: #BD8ABE;
+}
+
+.replybutton:hover {
+    border: 1px solid #5a4070;
+    box-shadow: inset 0px 4px 6px 0px #cda2d1;
+    background: #9e77b1;
 }
 
 .pagebutton-accent {
@@ -67,7 +113,6 @@
 .pagebuttonscontainer {
     display: inline-block;
     float: right;
-    padding-right: 48px;
     padding-bottom: 24px;
 }
 
