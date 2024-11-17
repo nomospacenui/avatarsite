@@ -94,7 +94,7 @@
             "name": "subforums",
             "withoutRowId": false,
             "strict": false,
-            "ddl": "CREATE TABLE subforums (id INTEGER PRIMARY KEY, name TEXT, parent_id INTEGER)",
+            "ddl": "CREATE TABLE subforums (id INTEGER PRIMARY KEY, name TEXT, parent_id INTEGER, threads_enabled INTEGER)",
             "columns": [
                 {
                     "name": "id",
@@ -113,33 +113,66 @@
                 {
                     "name": "parent_id",
                     "type": "INTEGER"
+                },
+                {
+                    "name": "threads_enabled",
+                    "type": "INTEGER"
                 }
             ],
             "rows": [
                 [
                     0,
                     "Administrative",
-                    -1
+                    -1,
+                    0
                 ],
                 [
                     1,
                     "Announcements",
-                    0
+                    0,
+                    1
                 ],
                 [
                     2,
                     "Feedback",
-                    0
+                    0,
+                    1
                 ],
                 [
                     3,
                     "Feature Suggestions",
-                    2
+                    2,
+                    1
                 ],
                 [
                     4,
                     "Bug Reports",
-                    2
+                    2,
+                    1
+                ],
+                [
+                    5,
+                    "Community",
+                    -1,
+                    0
+                ],
+                [
+                    6,
+                    "Welcome Wagon",
+                    5,
+                    1
+                ],
+                [
+                    7,
+                    "General Discussion",
+                    5,
+                    1
+                ],
+                [
+                    8,
+                    "Hangouts",
+                    5,
+                    1
                 ]
             ]
         },

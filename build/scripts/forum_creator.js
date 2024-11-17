@@ -1,4 +1,5 @@
 import Thread from "./thread.js"
+import Forum from "./forum.js"
 import inclusive_range from "./utils.js"
 
 class ForumCreator {
@@ -6,7 +7,7 @@ class ForumCreator {
         this.init()
     }
 
-    async init(){
+    async init() {
         var status = true
         this._url_vars = this.get_vars_from_url()
 
@@ -38,8 +39,14 @@ class ForumCreator {
         }
     }
 
-    get_vars_from_url(){
+    get_vars_from_url() {
         var url = String(window.location.href)
+        
+        //no url vars
+        if (url.lastIndexOf("?") == -1) {
+            return {}
+        }
+
         if (url.split("?").length > 2) {
             console.log("Multiple ? in the url")
             return false
@@ -47,14 +54,19 @@ class ForumCreator {
 
         url = url.substring(url.lastIndexOf("?") + 1)
         const url_vars_values = url.split("&")
-        const eligible_vars = ["page", "thread"]
+        const eligible_vars = ["page", "thread", "subforum"]
         var url_vars = {}
 
         for (var i = 0 ; i < url_vars_values.length ; ++i) {
             const var_value = url_vars_values[i].split("=")
+            if (var_value == "") {
+                continue
+            }
+            
             if (!eligible_vars.includes(var_value[0])) {
                 return false
             }
+            
             url_vars[var_value[0]] = Number(var_value[1])
         }
     
@@ -78,7 +90,7 @@ class ForumCreator {
         })
     }
     
-    async init_forum_database(json_content){
+    async init_forum_database(json_content) {
         return new Promise(function(resolve, reject) {
             //command for resetting: indexedDB.deleteDatabase('forum')
             var request  = indexedDB.open("forum", 1)
@@ -116,7 +128,7 @@ class ForumCreator {
         })
     }
 
-    async init_thread_layout(){
+    async init_thread_layout() {
         if (!("page" in this._url_vars && "thread" in this._url_vars)) {
             return false
         }
@@ -132,6 +144,37 @@ class ForumCreator {
         const subforums_data = await this.get_subforums_data(this._db)
         new Thread(thread_data, replies_data, subforums_data, this._url_vars, this._non_url_vars)
         return true
+    }
+
+    async init_subforum_layout() {
+        this._url_vars["subforum"]
+        const subforums_data = await this.get_subforums_data(this._db)
+    }
+
+    async init_forum_layout() {
+        var subforums_data = await this.get_subforums_data(this._db)
+
+        var categories = []
+        for (var i = 0 ; i < subforums_data.length ; ++i) {
+            const parent_id = subforums_data[i].parent_id
+            if (parent_id != -1) {
+                if (subforums_data[parent_id].children) {
+                    subforums_data[parent_id].children.push(subforums_data[i])
+                }
+
+                else {
+                    subforums_data[parent_id].children = [subforums_data[i]]
+                }
+            }
+        }
+        
+        for (var i = 0 ; i < subforums_data.length ; ++i) {
+            if (subforums_data[i].parent_id == -1) {
+                categories.push(subforums_data[i])
+            }
+        }
+
+        new Forum(categories)
     }
     
     async get_replies_data(db, url_vars) {

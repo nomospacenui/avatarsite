@@ -6,7 +6,7 @@
   color: #ffffff;
   padding: 6px;
   border: 1px solid #7D528C;
-  box-shadow: inset 0px 4px 6px 0px #E2B0DD;
+  box-shadow: inset 0px 4px 6px 0px #E2B0DD, 0px 4px 4px 0px rgba(125, 82, 140, 0.1921568627);
   z-index: 1;
   font-size: 14px;
 }
@@ -81,6 +81,8 @@ body {
   padding-left: 25px;
   padding-right: 25px;
   border-radius: 8px;
+  width: 65%;
+  min-width: 990px;
 }
 
 .contentbox-body {

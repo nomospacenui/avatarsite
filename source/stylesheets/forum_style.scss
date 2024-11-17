@@ -1,0 +1,35 @@
+@use "style";
+
+.category-win{
+    padding: 24px;
+}
+
+.category-win-header{
+    @extend .miniwin-header;
+    padding: 8px;
+    padding-left: 24px;
+    font-size: 16px;
+    min-width: 900px;
+    width: 85%;
+}
+
+.category-win-body{
+    @extend .miniwin-body;
+    padding: 0px;
+    border-spacing: 0px;
+    display: table;
+    min-width: 931px;
+    width: 87.6%;
+    border: 1px solid #7D528C;
+}
+
+.category-win-row{
+    display: table-row;
+    margin: 0px;
+}
+
+.category-win-cell{
+    display: table-cell;
+    padding: 20px;
+    border-collapse: collapse;
+}
