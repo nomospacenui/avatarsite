@@ -1,11 +1,4 @@
-body {
-  color: #555555;
-  background-image: url("../../assets/images/backgrounds/space.png");
-  background-size: cover;
-  font-family: Arial;
-}
-
-.miniwin-header, .postwin-header, .contentbox-header {
+.miniwin-header, .postwin-header {
   position: relative;
   margin: auto;
   border-radius: 5px;
@@ -31,31 +24,7 @@ body {
   box-shadow: 0px 4px 4px 0px rgba(125, 82, 140, 0.1921568627);
 }
 
-.contentbox-header {
-  font-size: 16px;
-  width: 65%;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  padding-left: 25px;
-  padding-right: 25px;
-  border-radius: 8px;
-}
-
-.contentbox-body {
-  position: relative;
-  display: table;
-  margin: auto;
-  margin-top: -15px;
-  background: rgba(218, 208, 231, 0.7960784314);
-  padding: 25px;
-  min-width: 900px;
-  width: 65%;
-  border-spacing: 5px;
-  border-radius: 15px;
-  box-shadow: 0px 4px 4px 0px rgba(88, 58, 99, 0.1921568627);
-}
-
-.button, .postbutton, .nav-button, .button-accent, .postbutton-accent {
+.button, .postbutton, .button-accent, .postbutton-accent {
   border-radius: 5px;
   background: #69ACA8;
   box-shadow: inset 0px 4px 6px 0px rgba(210, 255, 250, 0.3764705882);
@@ -69,7 +38,7 @@ body {
   cursor: pointer;
 }
 
-.button:hover, .postbutton:hover, .nav-button:hover, .button-accent:hover, .postbutton-accent:hover {
+.button:hover, .postbutton:hover, .button-accent:hover, .postbutton-accent:hover {
   background: #5e92a1;
   box-shadow: inset 0px 4px 6px 0px rgba(155, 213, 228, 0.3764705882);
 }
@@ -83,20 +52,6 @@ body {
 .button-accent:hover, .postbutton-accent:hover {
   background: #7574b8;
   box-shadow: inset 0px 4px 6px 0px rgba(139, 161, 209, 0.5607843137);
-}
-
-.nav-button {
-  font-size: 16px;
-  border: 0px solid #7D528C;
-  border-right: 1px solid #7D528C;
-  box-shadow: inset 0px 4px 6px 0px #E2B0DD;
-  background: #BD8ABE;
-  border-radius: 0px;
-}
-
-.nav-button:hover {
-  box-shadow: inset 0px 4px 6px 0px #c399c7;
-  background: #9e77b1;
 }
 
 .postactions {
@@ -170,8 +125,8 @@ body {
 }
 
 .postwin-header {
-  height: 15px;
   margin-right: 42px;
+  padding: 4px;
 }
 
 .postwin-body {

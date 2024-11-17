@@ -1,4 +1,4 @@
-@use "page_style";
+@use "style";
 
 .postactions {
     display: table-row;
@@ -74,8 +74,8 @@
 
 .postwin-header {
     @extend .miniwin-header;
-    height: 15px;
     margin-right: 42px;
+    padding: 4px;
 }
 
 .postwin-body {
