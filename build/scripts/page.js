@@ -15,9 +15,8 @@ class Page {
             button.innerHTML = nav_items[i]
             button.className = "nav-button"
 
-            if (i == 0) {
+            if (i == 0)
                 button.style.borderLeft = "1px solid #7D528C"
-            }
 
             navigation_bar.appendChild(button)
         }

@@ -68,10 +68,7 @@ class Thread {
 
         var thread_header_right = document.createElement("div")
         thread_header_right.className = "threadheader-right"
-
-        if (this._non_url_vars["num_pages"] > 1) {
-            thread_header_right.appendChild(this.create_page_navigation())
-        }
+        thread_header_right.appendChild(this.create_page_navigation())
         
         thread_header.appendChild(thread_header_left)
         thread_header.appendChild(thread_header_right)
@@ -82,10 +79,8 @@ class Thread {
     create_footer() {
         var thread_footer = document.getElementById("footer_contentbox")
         thread_footer.className = "threadheader"
+thread_footer.appendChild(this.create_page_navigation())
 
-        if (this._non_url_vars["num_pages"] > 1) {
-            thread_footer.appendChild(this.create_page_navigation())
-        }
         return thread_footer
     }
 
@@ -100,65 +95,67 @@ class Thread {
         
         thread_page_buttons.appendChild(thread_page_buttons_space)
         thread_page_buttons.appendChild(thread_page_buttons_container)
+        
+        if (this._non_url_vars["num_pages"] > 1) {
+            const current_page = this._url_vars["page"]
+            const num_pages = this._non_url_vars["num_pages"]
 
-        const current_page = this._url_vars["page"]
-        const num_pages = this._non_url_vars["num_pages"]
+            // + 1 as pages start counting from 1
+            var page_button_list = inclusive_range(1, num_pages)
 
-        // + 1 as pages start counting from 1
-        var page_button_list = inclusive_range(1, num_pages)
+            if (num_pages > this._max_page_nav_len) {
+                
+                //if the page number is at the front end
+                if (current_page < (this._max_page_nav_len / 2)){
+                    page_button_list = inclusive_range(1, this._max_page_nav_len)
+                }
 
-        if (num_pages > this._max_page_nav_len) {
+                //if the page number is at the tail end
+                else if (current_page + (this._max_page_nav_len / 2) > num_pages) {
+                    page_button_list = inclusive_range(num_pages - this._max_page_nav_len + 1, num_pages)
+                }
+
+                else {
+                    page_button_list = inclusive_range(current_page - 1, current_page + 1)
+                }
+            }
             
-            //if the page number is at the front end
-            if (current_page < (this._max_page_nav_len / 2)){
-                page_button_list = inclusive_range(1, this._max_page_nav_len)
+            if (current_page > 1) {
+                const b = this.create_page_navigation_button(current_page - 1, "<")
+                thread_page_buttons_container.appendChild(b)
             }
 
-            //if the page number is at the tail end
-            else if (current_page + (this._max_page_nav_len / 2) > num_pages) {
-                page_button_list = inclusive_range(num_pages - this._max_page_nav_len + 1, num_pages)
-            }
+            if (!page_button_list.includes(1)) {
+                const b_nav = this.create_page_navigation_button(1, 1)
+                thread_page_buttons_container.appendChild(b_nav)
 
-            else {
-                page_button_list = inclusive_range(current_page - 1, current_page + 1)
+                // needs "..." if there is a jump from the page 1 button to the next page button 
+                if (!page_button_list.includes(2)) {
+                    const b_jump = this.create_page_jump_button()
+                    thread_page_buttons_container.appendChild(b_jump)
+                }
             }
-        }
-        
-        if (current_page > 1) {
-            const b = this.create_page_navigation_button(current_page - 1, "<")
-            thread_page_buttons_container.appendChild(b)
-        }
-
-        if (!page_button_list.includes(1)) {
-            const b_nav = this.create_page_navigation_button(1, 1)
-            thread_page_buttons_container.appendChild(b_nav)
-
-            // needs "..." if there is a jump from the page 1 button to the next page button 
-            if (!page_button_list.includes(2)) {
-                const b_jump = this.create_page_jump_button()
-                thread_page_buttons_container.appendChild(b_jump)
+            
+            for (var i = 0 ; i < page_button_list.length ; ++i) {
+                const b = this.create_page_navigation_button(page_button_list[i], page_button_list[i])
+                thread_page_buttons_container.appendChild(b)
             }
-        }
-        
-        for (var i = 0 ; i < page_button_list.length ; ++i) {
-            const b = this.create_page_navigation_button(page_button_list[i], page_button_list[i])
-            thread_page_buttons_container.appendChild(b)
-        }
-        
-        if (!page_button_list.includes(num_pages)) {
-            // needs "..." if there is a jump from the next page button to the last page button 
-            if (!page_button_list.includes(num_pages - 1)) {
-                const b_jump = this.create_page_jump_button()
-                thread_page_buttons_container.appendChild(b_jump)
+            
+            if (!page_button_list.includes(num_pages)) {
+                // needs "..." if there is a jump from the next page button to the last page button 
+                if (!page_button_list.includes(num_pages - 1)) {
+                    const b_jump = this.create_page_jump_button()
+                    thread_page_buttons_container.appendChild(b_jump)
+                }
+            
+                const b = this.create_page_navigation_button(num_pages, num_pages)
+                thread_page_buttons_container.appendChild(b)
             }
-        
-            const b = this.create_page_navigation_button(num_pages, num_pages)
-            thread_page_buttons_container.appendChild(b)
-        }
-        
-        if (current_page < num_pages) {
-            const b = this.create_page_navigation_button(current_page + 1, ">")
-            thread_page_buttons_container.appendChild(b)
+            
+            if (current_page < num_pages) {
+                const b = this.create_page_navigation_button(current_page + 1, ">")
+                thread_page_buttons_container.appendChild(b)
+            }
         }
         
         var thread_reply_button = document.createElement("button")
@@ -172,13 +169,7 @@ class Thread {
     create_page_navigation_button(page, display_text) {
         const page_navigation_button = document.createElement("button")
         
-        if (page == this._url_vars["page"]) {
-            page_navigation_button.className = "pagebutton-accent"
-        }
-
-        else {
-            page_navigation_button.className = "pagebutton"
-        }
+        page_navigation_button.className = (page == this._url_vars["page"]) ? "pagebutton-accent" : "pagebutton"
 
         page_navigation_button.innerHTML = display_text
         const current_page = this._url_vars["page"]
@@ -198,20 +189,16 @@ class Thread {
         page_jump_input.placeholder = "Go to page..."
         
         page_jump_input.addEventListener("keydown", function (e) {
-            if (e.code == "Enter") {
+            if (e.code == "Enter")
                 go_to_page(page_jump_input.value, current_page)
-            }
         })
         
         page_jump_button.appendChild(page_jump_input)
 
         page_jump_button.onclick = function() {
-            if (page_jump_input.style.visibility == "visible") {
-                page_jump_input.style.visibility = "hidden"
-            }
-            else {
-                page_jump_input.style.visibility = "visible"
-            }
+            page_jump_input.style.visibility = (page_jump_input.style.visibility == "visible") ?
+                "hidden" :
+                "visible"
         }
         
         page_jump_input.onclick = function(e) {

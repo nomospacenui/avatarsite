@@ -4,11 +4,11 @@ class ForumCategories {
 
         var postcontent_container = document.getElementById("body_contentbox")
         for (var i = 0 ; i < this._categories.length ; ++i) {
-            postcontent_container.append(this.init_category(this._categories[i]))
+            postcontent_container.append(this.create_category(this._categories[i]))
         }
     }
 
-    init_category(category) {
+    create_category(category) {
         var category_win = document.createElement("div")
         category_win.className = "category-win"
 
@@ -54,11 +54,6 @@ class ForumCategories {
             row_activity.style.borderTop = "1px solid #7D528C"
             
             children_rows.append(row)
-            
-            // not showing children for now OR EVER
-            // if (children[i].children) {
-            //     children_rows.append(this.create_children_rows(children[i].children, indent_level + 1))
-            // }
         }
 
         return children_rows
