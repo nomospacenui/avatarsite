@@ -1,6 +1,6 @@
 import Thread from "./thread.js"
-import Forum from "./forum.js"
-import inclusive_range from "./utils.js"
+import ForumCategories from "./forum_categories.js"
+import ThreadListing from "./thread_listing.js"
 
 class ForumCreator {
     constructor() {
@@ -141,18 +141,37 @@ class ForumCreator {
         }
 
         this._non_url_vars = {"num_pages": num_pages}
-        const subforums_data = await this.get_subforums_data(this._db)
+        const subforums_data = await this.get_all_subforums_data(this._db)
         new Thread(thread_data, replies_data, subforums_data, this._url_vars, this._non_url_vars)
         return true
     }
 
     async init_subforum_layout() {
-        this._url_vars["subforum"]
-        const subforums_data = await this.get_subforums_data(this._db)
+        const thread_data = await this.get_all_threads_data(this._db)
+        const subforums_data = await this.get_all_subforums_data(this._db)
+
+        for (var i = 0 ; i < subforums_data.length ; ++i) {
+            const parent_id = subforums_data[i].parent_id
+            if (parent_id != -1) {
+                if (subforums_data[parent_id].children) {
+                    subforums_data[parent_id].children.push(subforums_data[i])
+                }
+
+                else {
+                    subforums_data[parent_id].children = [subforums_data[i]]
+                }
+            }
+        }
+
+        if (subforums_data[this._url_vars["subforum"]].children) {
+            new ForumCategories([subforums_data[this._url_vars["subforum"]]])
+        }
+        
+        new ThreadListing(thread_data, this._url_vars)
     }
 
     async init_forum_layout() {
-        var subforums_data = await this.get_subforums_data(this._db)
+        var subforums_data = await this.get_all_subforums_data(this._db)
 
         var categories = []
         for (var i = 0 ; i < subforums_data.length ; ++i) {
@@ -173,8 +192,8 @@ class ForumCreator {
                 categories.push(subforums_data[i])
             }
         }
-
-        new Forum(categories)
+        
+        new ForumCategories(categories)
     }
     
     async get_replies_data(db, url_vars) {
@@ -223,7 +242,7 @@ class ForumCreator {
             const thread_id = url_vars["thread"]
             var threads_transaction = db.transaction("threads", "readwrite")
             var threads_object_store = threads_transaction.objectStore("threads")
-    
+            
             var get_thread_request = threads_object_store.get(thread_id)
     
             get_thread_request.onsuccess = function(event) {
@@ -231,24 +250,27 @@ class ForumCreator {
             };
         })
     }
+
+    async get_all_threads_data(db) {
+        return new Promise(function(resolve, reject) {
+            var threads_transaction = db.transaction("threads", "readwrite")
+            var threads_object_store = threads_transaction.objectStore("threads")
+            var get_threads_request = threads_object_store.getAll()
+            
+            get_threads_request.onsuccess = function(e) {
+                resolve(e.target.result)
+            }
+        })
+    }
     
-    async get_subforums_data(db) {
+    async get_all_subforums_data(db) {
         return new Promise(function(resolve, reject) {
             var subforums_transaction = db.transaction("subforums", "readwrite")
             var subforums_object_store = subforums_transaction.objectStore("subforums")
-            var get_cursor_request = subforums_object_store.openCursor()
+            var get_subforums_request = subforums_object_store.getAll()
             
-            var subforums_data = []
-            get_cursor_request.onsuccess = function(e) {
-                const cursor = e.target.result;
-                if (cursor) {
-                    subforums_data.push(cursor.value)
-                    cursor.continue()
-                }
-    
-                else {
-                    resolve(subforums_data)
-                }
+            get_subforums_request.onsuccess = function(e) {
+                resolve(e.target.result)
             }
         })
     }
