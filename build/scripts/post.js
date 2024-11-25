@@ -2,7 +2,7 @@ class Post {
     constructor(post_data) {
         this._post_data = post_data
 
-        var postcontent_container = document.getElementById("body_contentbox")
+        var postcontent_container = document.getElementById("internal-body")
 
         postcontent_container.appendChild(this.create_actions())
 

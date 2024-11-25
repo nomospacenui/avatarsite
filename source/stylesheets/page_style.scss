@@ -31,15 +31,13 @@ body {
     padding-left: 25px;
     padding-right: 25px;
     border-radius: 8px;
-    width: 65%;
-    min-width: 990px;
 }
 
 .contentbox-body {
     @extend .page-scaling;
     position: relative;
     display: table;
-    margin:auto;
+    margin: auto;
     margin-top:-15px;
     background: #dad0e7b7;
     padding: 25px;
@@ -64,4 +62,20 @@ body {
 .nav-button:hover {
     box-shadow: inset 0px 4px 6px 0px #c399c7;
     background: #9e77b1;
+}
+
+.internal-header {
+    display: inline-block;
+    padding: 12px;
+    padding-left: 32px;
+    padding-bottom: 0px;
+    width: 96%;
+}
+
+.internal-body {
+    padding-top: 18px;
+}
+
+.internal-footer {
+    @extend .internal-header;
 }

@@ -107,7 +107,16 @@ class ForumCreator {
         if (subforums_data[this._url_vars["subforum"]].children)
             new ForumCategories([subforums_data[this._url_vars["subforum"]]])
         
-        new ThreadListing(thread_data, this._url_vars)
+        var filtered_thread_data = []
+        for (var i = 0 ; i < thread_data.length ; ++i) {
+            if (thread_data[i].subforum_id == this._url_vars.subforum) {
+                filtered_thread_data.push(thread_data[i])
+            }
+        }
+
+        if (filtered_thread_data.length > 0) {
+            new ThreadListing(filtered_thread_data, this._url_vars)
+        }
     }
 
     async init_forum_layout() {

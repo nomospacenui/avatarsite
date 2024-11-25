@@ -8,22 +8,6 @@
     padding-bottom: 18px;
 }
 
-.threadheader {
-    display: inline-block;
-    padding: 12px;
-    padding-left: 32px;
-    padding-bottom: 0px;
-    width: 96%;
-}
-
-.threadbody {
-    padding-top: 18px;
-}
-
-.threadfooter {
-    @extend .threadheader;
-}
-
 .threadheader-left {
     display: inline-block;
     width: 50%;

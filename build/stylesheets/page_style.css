@@ -6,7 +6,7 @@
   color: #ffffff;
   padding: 6px;
   border: 1px solid #7D528C;
-  box-shadow: inset 0px 4px 6px 0px #E2B0DD, 0px 4px 4px 0px rgba(125, 82, 140, 0.1921568627);
+  box-shadow: inset 0px 4px 6px 0px #E2B0DD, 0px 4px 4px 0px rgba(125, 82, 140, 0.231372549);
   z-index: 1;
   font-size: 14px;
 }
@@ -81,8 +81,6 @@ body {
   padding-left: 25px;
   padding-right: 25px;
   border-radius: 8px;
-  width: 65%;
-  min-width: 990px;
 }
 
 .contentbox-body {
@@ -112,6 +110,18 @@ body {
 .nav-button:hover {
   box-shadow: inset 0px 4px 6px 0px #c399c7;
   background: #9e77b1;
+}
+
+.internal-header, .internal-footer {
+  display: inline-block;
+  padding: 12px;
+  padding-left: 32px;
+  padding-bottom: 0px;
+  width: 96%;
+}
+
+.internal-body {
+  padding-top: 18px;
 }
 
 /*# sourceMappingURL=page_style.css.map */

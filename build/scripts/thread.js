@@ -47,7 +47,7 @@ class Thread {
         var page_title = document.getElementById("page_title")
         page_title.innerHTML = "Title"
         
-        var thread_header = document.getElementById("header_contentbox")
+        var thread_header = document.getElementById("internal-header")
         
         var thread_header_left = document.createElement("div")
         thread_header_left.className = "threadheader-left"
@@ -77,7 +77,7 @@ class Thread {
     }
 
     create_footer() {
-        var thread_footer = document.getElementById("footer_contentbox")
+        var thread_footer = document.getElementById("internal-footer")
         thread_footer.className = "threadheader"
 thread_footer.appendChild(this.create_page_navigation())
 
