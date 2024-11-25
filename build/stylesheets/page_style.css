@@ -24,7 +24,7 @@
   box-shadow: 0px 4px 4px 0px rgba(125, 82, 140, 0.1921568627);
 }
 
-.button, .nav-button, .button-accent {
+.button, .nav-button, .nav-button-accent, .button-accent {
   border-radius: 5px;
   background: #69ACA8;
   box-shadow: inset 0px 4px 6px 0px rgba(210, 255, 250, 0.3764705882);
@@ -38,7 +38,7 @@
   cursor: pointer;
 }
 
-.button:hover, .nav-button:hover, .button-accent:hover {
+.button:hover, .nav-button:hover, .nav-button-accent:hover, .button-accent:hover {
   background: #5e92a1;
   box-shadow: inset 0px 4px 6px 0px rgba(155, 213, 228, 0.3764705882);
 }
@@ -95,7 +95,7 @@ body {
   box-shadow: 0px 4px 4px 0px rgba(88, 58, 99, 0.1921568627);
 }
 
-.nav-button {
+.nav-button, .nav-button-accent {
   font-size: 16px;
   border: 0px solid #7D528C;
   border-right: 1px solid #7D528C;
@@ -107,9 +107,21 @@ body {
   padding-right: 32px;
 }
 
-.nav-button:hover {
+.nav-button:hover, .nav-button-accent:hover {
   box-shadow: inset 0px 4px 6px 0px #c399c7;
   background: #9e77b1;
+}
+
+.nav-button-accent {
+  border: 0px solid #427C9C;
+  border-right: 1px solid #427C9C;
+  box-shadow: inset 0px 4px 6px 0px rgba(210, 255, 250, 0.3764705882);
+  background: #69ACA8;
+}
+
+.nav-button-accent:hover {
+  box-shadow: inset 0px 4px 6px 0px rgba(210, 255, 255, 0.3294117647);
+  background: #598a96;
 }
 
 .internal-header, .internal-footer {

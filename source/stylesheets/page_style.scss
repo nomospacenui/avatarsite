@@ -64,6 +64,19 @@ body {
     background: #9e77b1;
 }
 
+.nav-button-accent {
+    @extend .nav-button;
+    border: 0px solid #427C9C;
+    border-right: 1px solid #427C9C;
+    box-shadow: inset 0px 4px 6px 0px #d2fffa60;
+    background: #69ACA8;
+}
+
+.nav-button-accent:hover {
+    box-shadow: inset 0px 4px 6px 0px #d2ffff54;
+    background: #598a96;
+}
+
 .internal-header {
     display: inline-block;
     padding: 12px;
