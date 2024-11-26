@@ -4,7 +4,6 @@ function add_url_var(keys_values, url_vars) {
         url = url.substring(0, url.lastIndexOf("?") + 1)
     else
         url += "?"
-    console.log(url)
 
     if (Object.keys(url_vars).length > 0 ) {
         for (let [k, v] of Object.entries(url_vars)) {
@@ -17,6 +16,7 @@ function add_url_var(keys_values, url_vars) {
 
     if (Object.keys(keys_values).length > 0 ) {
         for (let [k, v] of Object.entries(keys_values)) {
+            console.log(url)
             if (!(k in url_vars))
                 url += k + "=" + v + "&"
         }
