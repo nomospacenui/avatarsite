@@ -1,7 +1,9 @@
 function add_url_var(keys_values, url_vars) {
     var url = String(window.location.href)
-    var filename = url.substring(0, url.lastIndexOf(".html") + 5)
-    url = filename + "?"
+    if (url.lastIndexOf("?") != -1)
+        url = url.substring(0, url.lastIndexOf("?") + 1)
+    else
+        url += "?"
 
     if (Object.keys(url_vars).length > 0 ) {
         for (let [k, v] of Object.entries(url_vars)) {
