@@ -63,14 +63,30 @@
 .category-win-header {
   font-size: 16px;
   border-radius: 5px;
+  padding: 8px;
+  padding-left: 24px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.category-win-header:hover {
+  background: #9e77b1;
+  box-shadow: inset 0px 4px 6px 0px #c399c7, 0px 4px 4px 0px rgba(125, 82, 140, 0.231372549);
 }
 
 .category-win-body {
-  padding: 0px;
+  padding: 2px;
 }
 
 .category-win-body-row {
   display: table-row;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin: 10px;
+}
+
+.category-win-body-row:hover {
+  background: #dccfe4;
 }
 
 .category-win-body-cell {

@@ -1,6 +1,9 @@
+import add_url_var from "./site_nav.js"
+
 class ForumCategories {
-    constructor(categories) {
+    constructor(categories, url_vars) {
         this._categories = categories
+        this._url_vars = url_vars
 
         var postcontent_container = document.getElementById("internal-body")
         for (var i = 0 ; i < this._categories.length ; ++i) {
@@ -15,8 +18,13 @@ class ForumCategories {
         var category_win_header = document.createElement("div")
         category_win_header.className = "category-win-header"
         category_win_header.innerHTML = category.name
-        category_win.append(category_win_header)
+        const subforum_id = category.id
+        const url_vars = this._url_vars
+        category_win_header.onclick = function(){
+            add_url_var({"subforum": subforum_id, "page": 0}, url_vars)
+        }
 
+        category_win.append(category_win_header)
         category_win.append(this.create_children_rows(category.children))
 
         return category_win
@@ -29,6 +37,11 @@ class ForumCategories {
         for (var i = 0 ; i < children.length ; ++i) {
             var row = document.createElement("div")
             row.className = "category-win-body-row"
+            const subforum_id = children[i].id
+            const url_vars = this._url_vars
+            row.onclick = function(){ 
+                add_url_var({"subforum": subforum_id, "page": 0}, url_vars)
+            }
             
             var row_name = document.createElement("div")
             row_name.className = "category-win-body-cell"

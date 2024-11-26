@@ -104,8 +104,11 @@ class ForumCreator {
         const thread_data = await db_functions.get_all("threads")
         const subforums_data = await this.get_subforums()
 
+        var page_title = document.getElementById("page_title")
+        page_title.innerHTML = subforums_data[this._url_vars["subforum"]].name
+
         if (subforums_data[this._url_vars["subforum"]].children)
-            new ForumCategories([subforums_data[this._url_vars["subforum"]]])
+            new ForumCategories([subforums_data[this._url_vars["subforum"]]], this._url_vars)
         
         var filtered_thread_data = []
         for (var i = 0 ; i < thread_data.length ; ++i) {
@@ -128,7 +131,7 @@ class ForumCreator {
                 categories.push(subforums_data[i])
         }
         
-        new ForumCategories(categories)
+        new ForumCategories(categories, this._url_vars)
     }
 
     async get_subforums() {
