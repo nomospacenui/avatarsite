@@ -22,7 +22,7 @@ function add_url_var(keys_values, url_vars) {
         }
     }
     
-    window.location.replace(url.substring(0, url.length - 1))
+    // window.location.replace(url.substring(0, url.length - 1))
 }
 
 export default add_url_var
