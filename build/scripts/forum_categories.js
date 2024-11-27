@@ -1,4 +1,4 @@
-import add_url_var from "./site_nav.js"
+import change_url_var from "./site_nav.js"
 
 class ForumCategories {
     constructor(categories, url_vars) {
@@ -21,7 +21,7 @@ class ForumCategories {
         const subforum_id = category.id
         const url_vars = this._url_vars
         category_win_header.onclick = function(){
-            add_url_var({"subforum": subforum_id, "page": 0}, url_vars)
+            change_url_var({"subforum": subforum_id, "page": 0}, url_vars)
         }
 
         category_win.append(category_win_header)
@@ -40,7 +40,7 @@ class ForumCategories {
             const subforum_id = children[i].id
             const url_vars = this._url_vars
             row.onclick = function(){ 
-                add_url_var({"subforum": subforum_id, "page": 0}, url_vars)
+                change_url_var({"subforum": subforum_id, "page": 0}, url_vars)
             }
             
             var row_name = document.createElement("div")

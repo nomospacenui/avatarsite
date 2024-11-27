@@ -1,7 +1,12 @@
 
 class Page {
     constructor() {
+        this.handle_backbutton()
         this.create_navigation()
+    }
+
+    handle_backbutton() {
+        window.addEventListener("popstate", (event) => {window.location.href = sessionStorage.getItem('prev_url')})
     }
 
     create_navigation() {

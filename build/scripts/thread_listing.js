@@ -1,3 +1,5 @@
+import change_url_var from "./site_nav.js"
+
 class ThreadListing {
     constructor(thread_data, url_vars) {
         this._thread_data = thread_data
@@ -55,6 +57,12 @@ class ThreadListing {
         for (var i = 0 ; i < this._thread_data.length ; ++i) {
             var row = document.createElement("div")
             row.className = "listing-win-body-row"
+            
+            const thread_id = this._thread_data[i].id
+            const url_vars = this._url_vars
+            row.onclick = function(){ 
+                change_url_var({"thread": thread_id, "page": 0}, url_vars, ["subforum"])
+            }
             
             var row_name = document.createElement("div")
             row_name.innerHTML = "THREAD NAME HERE"

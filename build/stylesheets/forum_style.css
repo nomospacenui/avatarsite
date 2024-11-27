@@ -134,6 +134,13 @@
 
 .listing-win-body-row {
   display: table-row;
+  cursor: pointer;
+  padding: 2px;
+  transition: background-color 0.3s;
+}
+
+.listing-win-body-row:hover .listing-win-body-cell, .listing-win-body-row:hover .listing-win-body-cell-br, .listing-win-body-row:hover .listing-win-body-cell-bm, .listing-win-body-row:hover .listing-win-body-cell-bl, .listing-win-body-row:hover .listing-win-body-cell-r, .listing-win-body-row:hover .listing-win-body-cell-m, .listing-win-body-row:hover .listing-win-body-cell-l {
+  background: #dccfe4;
 }
 
 .listing-win-body-cell, .listing-win-body-cell-br, .listing-win-body-cell-bm, .listing-win-body-cell-bl, .listing-win-body-cell-r, .listing-win-body-cell-m, .listing-win-body-cell-l {
