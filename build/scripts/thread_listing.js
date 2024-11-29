@@ -1,4 +1,4 @@
-import change_url_var from "./site_nav.js"
+import site_nav from "./site_nav.js"
 
 class ThreadListing {
     constructor(thread_data, url_vars) {
@@ -61,7 +61,8 @@ class ThreadListing {
             const thread_id = this._thread_data[i].id
             const url_vars = this._url_vars
             row.onclick = function(){ 
-                change_url_var({"thread": thread_id, "page": 0}, url_vars, ["subforum"])
+                const url = site_nav.change_url_var({"thread": thread_id, "page": 1}, url_vars, ["subforum"])
+                site_nav.go_to_url(url)
             }
             
             var row_name = document.createElement("div")

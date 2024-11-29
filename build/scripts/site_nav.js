@@ -25,7 +25,16 @@ function change_url_var(keys_values, url_vars, remove_keys=[]) {
         }
     }
     
-    window.location.href = url.substring(0, url.length - 1)
+    return url.substring(0, url.length - 1)
 }
 
-export default change_url_var
+function go_to_url(url) {
+    window.location.href = url
+}
+
+const site_nav = {
+    change_url_var,
+    go_to_url
+}
+
+export default site_nav

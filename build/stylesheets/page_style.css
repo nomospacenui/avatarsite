@@ -136,4 +136,14 @@ body {
   padding-top: 18px;
 }
 
+.hyperlink {
+  text-decoration: none;
+  color: #427C9C;
+  transition: color 0.3s;
+}
+
+.hyperlink:hover {
+  color: rgb(60, 88, 139);
+}
+
 /*# sourceMappingURL=page_style.css.map */

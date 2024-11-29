@@ -1,5 +1,6 @@
 import Thread from "./thread.js"
 import ForumCategories from "./forum_categories.js"
+import ForumBreadcrumbs from "./forum_breadcrumbs.js"
 import ThreadListing from "./thread_listing.js"
 import db_functions from "./database.js"
 
@@ -71,6 +72,7 @@ class ForumCreator {
     async init_thread_layout() {
         const thread_data = await db_functions.get_entry("threads", this._url_vars["thread"])
         var replies_data = await db_functions.get_all("replies")
+        const subforums_data = await db_functions.get_all("subforums")
 
         if (replies_data.length > 0) {
             var relevant_replies_data = []
@@ -95,8 +97,9 @@ class ForumCreator {
             replies_data = relevant_replies_data.slice(start_reply, end_reply)
         }
 
-        const subforums_data = await db_functions.get_all("subforums")
-        new Thread(thread_data, replies_data, subforums_data, this._url_vars, this._non_url_vars)
+        new ForumBreadcrumbs(subforums_data, subforums_data[thread_data["subforum_id"]], this._url_vars)
+        new Thread(thread_data, replies_data, this._url_vars, this._non_url_vars)
+
         return true
     }
 
@@ -107,6 +110,7 @@ class ForumCreator {
         var page_title = document.getElementById("page_title")
         page_title.innerHTML = subforums_data[this._url_vars["subforum"]].name
 
+        new ForumBreadcrumbs(subforums_data, subforums_data[this._url_vars["subforum"]], this._url_vars)
         if (subforums_data[this._url_vars["subforum"]].children)
             new ForumCategories([subforums_data[this._url_vars["subforum"]]], this._url_vars)
         
@@ -120,6 +124,8 @@ class ForumCreator {
         if (filtered_thread_data.length > 0) {
             new ThreadListing(filtered_thread_data, this._url_vars)
         }
+
+        return true
     }
 
     async init_forum_layout() {
@@ -132,6 +138,7 @@ class ForumCreator {
         }
         
         new ForumCategories(categories, this._url_vars)
+        return true
     }
 
     async get_subforums() {
