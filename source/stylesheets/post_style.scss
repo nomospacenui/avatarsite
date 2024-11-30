@@ -75,7 +75,10 @@
 .postwin-header {
     @extend .miniwin-header;
     margin-right: 42px;
-    padding: 4px;
+    padding: 6px;
+    padding-right: 18px;
+    font-size: 12px;
+    text-align: right;
 }
 
 .postwin-body {

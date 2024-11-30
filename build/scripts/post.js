@@ -1,3 +1,5 @@
+import utils from "./tools/utils.js"
+
 class Post {
     constructor(post_data) {
         this._post_data = post_data
@@ -81,7 +83,8 @@ class Post {
 
         var post_header = document.createElement("div")
         post_header.className = "postwin-header"
-        post_header.innerHTML = "Header"
+        var [display_time, relative_time] = utils.format_datetime(this._post_data.datetime)
+        post_header.innerHTML = "Posted " + relative_time + " (" + display_time + ")"
 
         var post_body = document.createElement("div")
         post_body.className = "postwin-body"

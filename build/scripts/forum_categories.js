@@ -48,11 +48,13 @@ class ForumCategories {
             var row_name = document.createElement("div")
             row_name.className = "category-win-body-cell"
             row_name.innerHTML = children[i].name
+            row_name.style.width = "25%"
             row.append(row_name)
             
             var row_description = document.createElement("div")
             row_description.className = "category-win-body-cell"
-            row_description.innerHTML = "Description Description Description Description Description Description Description Description Description Description Description Description"
+            row_description.innerHTML = children[i].description
+            row_description.style.width = "40%"
             row.append(row_description)
             
             var row_activity = document.createElement("div")

@@ -122,7 +122,8 @@ class ForumCreator {
         }
 
         if (filtered_thread_data.length > 0) {
-            new ThreadListing(filtered_thread_data, this._url_vars)
+            var replies_data = await db_functions.get_all("replies")
+            new ThreadListing(replies_data, filtered_thread_data, this._url_vars)
         }
 
         return true

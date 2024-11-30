@@ -8,7 +8,7 @@
             "name": "replies",
             "withoutRowId": false,
             "strict": false,
-            "ddl": "CREATE TABLE replies (id INTEGER PRIMARY KEY, thread_id INTEGER REFERENCES threads (id), content TEXT)",
+            "ddl": "CREATE TABLE replies (id INTEGER PRIMARY KEY, thread_id INTEGER REFERENCES threads (id), content TEXT, datetime TEXT)",
             "columns": [
                 {
                     "name": "id",
@@ -33,58 +33,72 @@
                 {
                     "name": "content",
                     "type": "TEXT"
+                },
+                {
+                    "name": "datetime",
+                    "type": "TEXT"
                 }
             ],
             "rows": [
                 [
                     1,
                     0,
-                    "Do what you love and love what you do"
+                    "Do what you love and love what you do",
+                    "2012-01-01 15:27:01"
                 ],
                 [
                     2,
                     0,
-                    "Drag is fun so dont drag your <i>dream<\/i>"
+                    "Drag is fun so dont drag your <i>dream<\/i>",
+                    "2012-01-01 15:28:32"
                 ],
                 [
                     3,
                     0,
-                    "lead with love and <b>slay<\/b> the scene"
+                    "lead with love and <b>slay<\/b> the scene",
+                    "2012-01-01 15:29:11"
                 ],
                 [
                     4,
                     1,
-                    "This should not appear in thread 1"
+                    "This should not appear in thread 1",
+                    "2012-05-03 01:03:52"
                 ],
                 [
                     5,
                     0,
-                    "Bump 1"
+                    "Bump 1",
+                    "2012-01-05 19:23:14"
                 ],
                 [
                     6,
                     0,
-                    "Bump 2"
+                    "Bump 2",
+                    "2012-01-05 19:24:35"
                 ],
                 [
                     7,
                     0,
-                    "Bump 3"
+                    "Bump 3",
+                    "2012-01-05 19:25:13"
                 ],
                 [
                     8,
                     0,
-                    "Bump 4"
+                    "Bump 4",
+                    "2012-01-05 19:27:56"
                 ],
                 [
                     9,
                     0,
-                    "Bump 5"
+                    "Bump 5",
+                    "2012-01-05 19:29:57"
                 ],
                 [
                     10,
                     0,
-                    "Bump 6"
+                    "Bump 6",
+                    "2012-01-05 19:33:56"
                 ]
             ]
         },
@@ -94,7 +108,7 @@
             "name": "subforums",
             "withoutRowId": false,
             "strict": false,
-            "ddl": "CREATE TABLE subforums (id INTEGER PRIMARY KEY, name TEXT, parent_id INTEGER, threads_enabled INTEGER)",
+            "ddl": "CREATE TABLE subforums (id INTEGER PRIMARY KEY, name TEXT, parent_id INTEGER, threads_enabled INTEGER, description TEXT)",
             "columns": [
                 {
                     "name": "id",
@@ -117,6 +131,10 @@
                 {
                     "name": "threads_enabled",
                     "type": "INTEGER"
+                },
+                {
+                    "name": "description",
+                    "type": "TEXT"
                 }
             ],
             "rows": [
@@ -124,55 +142,64 @@
                     0,
                     "Administrative",
                     -1,
-                    0
+                    0,
+                    "-1"
                 ],
                 [
                     1,
                     "Announcements",
                     0,
-                    1
+                    1,
+                    "Catch up on the latest news here!"
                 ],
                 [
                     2,
                     "Feedback",
                     0,
-                    1
+                    1,
+                    "Let us know what we can do to improve the site!"
                 ],
                 [
                     3,
                     "Feature Suggestions",
                     2,
-                    1
+                    1,
+                    "Share ideas to improve the site!"
                 ],
                 [
                     4,
                     "Bug Reports",
                     2,
-                    1
+                    1,
+                    "Help us catch bugs to improve the site!"
                 ],
                 [
                     5,
                     "Community",
                     -1,
-                    0
+                    0,
+                    "-1"
                 ],
                 [
                     6,
                     "Welcome Wagon",
                     5,
-                    1
+                    1,
+                    "Introduce yourself here!"
                 ],
                 [
                     7,
                     "General Discussion",
                     5,
-                    1
+                    1,
+                    "Light-hearted discussions about anything and everything!"
                 ],
                 [
                     8,
                     "Hangouts",
                     5,
-                    1
+                    1,
+                    "Create or find a spot for you and your friends! "
                 ]
             ]
         },
@@ -182,7 +209,7 @@
             "name": "threads",
             "withoutRowId": false,
             "strict": false,
-            "ddl": "CREATE TABLE threads (id INTEGER PRIMARY KEY, content TEXT, subforum_id INTEGER)",
+            "ddl": "CREATE TABLE threads (id INTEGER PRIMARY KEY, content TEXT, subforum_id INTEGER, datetime TEXT, name TEXT)",
             "columns": [
                 {
                     "name": "id",
@@ -201,23 +228,37 @@
                 {
                     "name": "subforum_id",
                     "type": "INTEGER"
+                },
+                {
+                    "name": "datetime",
+                    "type": "TEXT"
+                },
+                {
+                    "name": "name",
+                    "type": "TEXT"
                 }
             ],
             "rows": [
                 [
                     0,
                     "Hold up <b>wait<\/b> let me add my 2",
-                    2
+                    2,
+                    "2012-01-01 15:25:34",
+                    "Monthly recaps"
                 ],
                 [
                     1,
-                    "Nothing",
-                    3
+                    "I would love to have some incentives to log into the site everyday",
+                    3,
+                    "2012-05-02 00:04:14",
+                    "Daily login rewards"
                 ],
                 [
                     2,
                     "TESTING",
-                    4
+                    4,
+                    "2013-06-13 19:05:32",
+                    "Page navigation bar not working"
                 ]
             ]
         }

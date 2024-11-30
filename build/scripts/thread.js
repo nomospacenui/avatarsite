@@ -1,7 +1,6 @@
 import Post from "./post.js"
-import inclusive_range from "./utils.js"
+import utils from "./tools/utils.js"
 import go_to_page from "./page_button.js"
-import get_breadcrumbs from "./forum_breadcrumbs.js"
 
 class Thread {
     constructor(thread_data, replies_data, url_vars, non_url_vars) {
@@ -16,8 +15,7 @@ class Thread {
 
         // First post by the thread author
         if (url_vars["page"] == 1) {
-            const post_data = {content: thread_data["content"]}
-            new Post(post_data)
+            new Post(thread_data)
         }
 
         // Subsequent replies
@@ -30,7 +28,7 @@ class Thread {
 
     create_header() {
         var page_title = document.getElementById("page_title")
-        page_title.innerHTML = "Title"
+        page_title.innerHTML = this._thread_data.name
         
         var thread_header = document.getElementById("internal-header")
         
@@ -39,7 +37,7 @@ class Thread {
 
         var thread_title = document.createElement("div")
         thread_title.className = "threadtitle"
-        thread_title.innerHTML = "Thread Title"
+        thread_title.innerHTML = this._thread_data.name
         thread_header_left.appendChild(thread_title)
         
         var report_thread_button = document.createElement("button")
@@ -82,22 +80,22 @@ class Thread {
             const num_pages = this._non_url_vars["num_pages"]
 
             // + 1 as pages start counting from 1
-            var page_button_list = inclusive_range(1, num_pages)
+            var page_button_list = utils.inclusive_range(1, num_pages)
 
             if (num_pages > this._max_page_nav_len) {
                 
                 //if the page number is at the front end
                 if (current_page < (this._max_page_nav_len / 2)){
-                    page_button_list = inclusive_range(1, this._max_page_nav_len)
+                    page_button_list = utils.inclusive_range(1, this._max_page_nav_len)
                 }
 
                 //if the page number is at the tail end
                 else if (current_page + (this._max_page_nav_len / 2) > num_pages) {
-                    page_button_list = inclusive_range(num_pages - this._max_page_nav_len + 1, num_pages)
+                    page_button_list = utils.inclusive_range(num_pages - this._max_page_nav_len + 1, num_pages)
                 }
 
                 else {
-                    page_button_list = inclusive_range(current_page - 1, current_page + 1)
+                    page_button_list = utils.inclusive_range(current_page - 1, current_page + 1)
                 }
             }
             
