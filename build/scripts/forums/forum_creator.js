@@ -2,11 +2,11 @@ import Thread from "./thread.js"
 import ForumCategories from "./forum_categories.js"
 import ForumBreadcrumbs from "./forum_breadcrumbs.js"
 import ThreadListing from "./thread_listing.js"
-import db_functions from "./database.js"
+import db_functions from "../database/database.js"
 
 class ForumCreator {
     constructor() {
-        this._replies_per_page = 8
+        this._replies_per_page = 1
         this._non_url_vars = {}
         this._url_vars = {}
 

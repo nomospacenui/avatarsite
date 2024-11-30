@@ -1,4 +1,4 @@
-import utils from "./tools/utils.js"
+import utils from "../tools/utils.js"
 
 class Post {
     constructor(post_data) {

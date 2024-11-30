@@ -1,4 +1,4 @@
-import site_nav from "./site_nav.js"
+import site_nav from "../tools/site_nav.js"
 
 class ForumCategories {
     constructor(categories, url_vars) {
@@ -15,15 +15,10 @@ class ForumCategories {
         var category_win = document.createElement("div")
         category_win.className = "category-win"
 
-        var category_win_header = document.createElement("div")
+        var category_win_header = document.createElement("a")
         category_win_header.className = "category-win-header"
         category_win_header.innerHTML = category.name
-        const subforum_id = category.id
-        const url_vars = this._url_vars
-        category_win_header.onclick = function(){
-            const url = site_nav.change_url_var({"subforum": subforum_id, "page": 0}, url_vars)
-            site_nav.go_to_url(url)
-        }
+        category_win_header.href = site_nav.change_url_var({"subforum": category.id, "page": 0}, this._url_vars)
 
         category_win.append(category_win_header)
         category_win.append(this.create_children_rows(category.children))
@@ -36,14 +31,9 @@ class ForumCategories {
         category_win_body.className = "category-win-body"
 
         for (var i = 0 ; i < children.length ; ++i) {
-            var row = document.createElement("div")
+            var row = document.createElement("a")
             row.className = "category-win-body-row"
-            const subforum_id = children[i].id
-            const url_vars = this._url_vars
-            row.onclick = function(){ 
-                const url = site_nav.change_url_var({"subforum": subforum_id, "page": 0}, url_vars)
-                site_nav.go_to_url(url)
-            }
+            row.href = site_nav.change_url_var({"subforum": children[i].id, "page": 0}, this._url_vars)
             
             var row_name = document.createElement("div")
             row_name.className = "category-win-body-cell"

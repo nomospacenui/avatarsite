@@ -1,5 +1,5 @@
-import site_nav from "./site_nav.js"
-import utils from "./tools/utils.js"
+import site_nav from "../tools/site_nav.js"
+import utils from "../tools/utils.js"
 
 class ThreadListing {
     constructor(replies_data, thread_data, url_vars) {
@@ -57,15 +57,9 @@ class ThreadListing {
         var rows = []
 
         for (var i = 0 ; i < this._thread_data.length ; ++i) {
-            var row = document.createElement("div")
+            var row = document.createElement("a")
             row.className = "listing-win-body-row"
-            
-            const thread_id = this._thread_data[i].id
-            const url_vars = this._url_vars
-            row.onclick = function(){ 
-                const url = site_nav.change_url_var({"thread": thread_id, "page": 1}, url_vars, ["subforum"])
-                site_nav.go_to_url(url)
-            }
+            row.href = site_nav.change_url_var({"thread": this._thread_data[i].id, "page": 1}, this._url_vars, ["subforum"])
             
             var row_name = document.createElement("div")
             row_name.innerHTML = this._thread_data[i].name
@@ -78,7 +72,7 @@ class ThreadListing {
             var num_replies = 0
             var latest_reply = null
             this._replies_data.forEach(reply => {
-                if (reply.thread_id == thread_id) {
+                if (reply.thread_id == this._thread_data[i].id) {
                     num_replies += 1
                     latest_reply = reply
                 }

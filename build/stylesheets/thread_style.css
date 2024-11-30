@@ -24,7 +24,7 @@
   box-shadow: 0px 4px 4px 0px rgba(125, 82, 140, 0.1921568627);
 }
 
-.button, .pagebutton, .pagejumpbutton, .pagebutton-accent, .pagebutton-accent:hover, .button-accent, .replybutton {
+.button, .pagebutton, .pagebutton-accent, .pagebutton-accent:hover, .button-accent, .replybutton {
   border-radius: 5px;
   background: #69ACA8;
   box-shadow: inset 0px 4px 6px 0px rgba(210, 255, 250, 0.3764705882);
@@ -38,7 +38,7 @@
   cursor: pointer;
 }
 
-.button:hover, .pagebutton:hover, .pagejumpbutton:hover, .pagebutton-accent:hover, .button-accent:hover, .replybutton:hover {
+.button:hover, .pagebutton:hover, .pagebutton-accent:hover, .button-accent:hover, .replybutton:hover {
   background: #5e92a1;
   box-shadow: inset 0px 4px 6px 0px rgba(155, 213, 228, 0.3764705882);
 }
@@ -79,19 +79,16 @@
   width: 96%;
 }
 
-.pagebutton, .pagebutton-accent:hover, .pagebutton-accent, .pagejumpbutton {
-  display: inline-block;
+.pagebutton, .pagebutton-accent:hover, .pagebutton-accent {
   position: relative;
+  display: inline-block;
+  text-align: center;
   font-size: 12px;
-  padding: 4px;
-  padding-left: 8px;
-  padding-right: 8px;
-  border-radius: 0px;
-}
-
-.pagejumpbutton {
-  top: -1px;
+  padding: 6px;
   height: 14px;
+  width: 14px;
+  border-radius: 0px;
+  text-decoration: none;
 }
 
 .replybutton {
@@ -135,12 +132,6 @@
   display: inline-block;
   float: right;
   padding-bottom: 24px;
-}
-
-.pagebuttoncounter {
-  display: inline-block;
-  padding: 8px;
-  font-size: 12px;
 }
 
 .pagebuttonjumpinput {

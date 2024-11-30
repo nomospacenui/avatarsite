@@ -1,6 +1,6 @@
 import Post from "./post.js"
-import utils from "./tools/utils.js"
-import go_to_page from "./page_button.js"
+import utils from "../tools/utils.js"
+import site_nav from "../tools/site_nav.js"
 
 class Thread {
     constructor(thread_data, replies_data, url_vars, non_url_vars) {
@@ -8,20 +8,17 @@ class Thread {
         this._replies_data = replies_data
         this._url_vars = url_vars
         this._non_url_vars = non_url_vars
-
         this._max_page_nav_len = 3
 
         this.create_header()
 
         // First post by the thread author
-        if (url_vars["page"] == 1) {
+        if (url_vars["page"] == 1)
             new Post(thread_data)
-        }
 
         // Subsequent replies
-        for (var i = 0 ; i < replies_data.length ; ++i) {
+        for (var i = 0 ; i < replies_data.length ; ++i)
             new Post(replies_data[i])
-        }
 
         this.create_footer()
     }
@@ -69,10 +66,10 @@ class Thread {
 
         var thread_page_buttons_space = document.createElement("div")
         thread_page_buttons_space.className = "pagebuttons-space"
+        thread_page_buttons.appendChild(thread_page_buttons_space)
+        
         var thread_page_buttons_container = document.createElement("div")
         thread_page_buttons_container.className = "pagebuttonscontainer"
-        
-        thread_page_buttons.appendChild(thread_page_buttons_space)
         thread_page_buttons.appendChild(thread_page_buttons_container)
         
         if (this._non_url_vars["num_pages"] > 1) {
@@ -85,18 +82,15 @@ class Thread {
             if (num_pages > this._max_page_nav_len) {
                 
                 //if the page number is at the front end
-                if (current_page < (this._max_page_nav_len / 2)){
+                if (current_page < (this._max_page_nav_len / 2))
                     page_button_list = utils.inclusive_range(1, this._max_page_nav_len)
-                }
 
                 //if the page number is at the tail end
-                else if (current_page + (this._max_page_nav_len / 2) > num_pages) {
+                else if (current_page + (this._max_page_nav_len / 2) > num_pages)
                     page_button_list = utils.inclusive_range(num_pages - this._max_page_nav_len + 1, num_pages)
-                }
 
-                else {
+                else
                     page_button_list = utils.inclusive_range(current_page - 1, current_page + 1)
-                }
             }
             
             if (current_page > 1) {
@@ -146,13 +140,11 @@ class Thread {
     }
 
     create_page_navigation_button(page, display_text) {
-        const page_navigation_button = document.createElement("button")
-        
+        const page_navigation_button = document.createElement("a")
         page_navigation_button.className = (page == this._url_vars["page"]) ? "pagebutton-accent" : "pagebutton"
-
         page_navigation_button.innerHTML = display_text
-        const current_page = this._url_vars["page"]
-        page_navigation_button.onclick = function() {go_to_page(page, current_page)}
+        page_navigation_button.href = site_nav.change_url_var({"page": page}, this._url_vars, [])
+
         return page_navigation_button
     }
 
@@ -160,8 +152,14 @@ class Thread {
         const current_page = this._url_vars["page"]
         
         const page_jump_button = document.createElement("popup")
-        page_jump_button.className = "pagejumpbutton"
+        page_jump_button.className = "pagebutton"
         page_jump_button.innerHTML = "..."
+        
+        page_jump_button.onclick = function() {
+            page_jump_input.style.visibility = (page_jump_input.style.visibility == "visible") ?
+                "hidden" :
+                "visible"
+        }
 
         const page_jump_input = document.createElement("input")
         page_jump_input.className = "pagebuttonjumpinput"
@@ -172,18 +170,11 @@ class Thread {
                 go_to_page(page_jump_input.value, current_page)
         })
         
-        page_jump_button.appendChild(page_jump_input)
-
-        page_jump_button.onclick = function() {
-            page_jump_input.style.visibility = (page_jump_input.style.visibility == "visible") ?
-                "hidden" :
-                "visible"
-        }
-        
         page_jump_input.onclick = function(e) {
             e.stopPropagation();
         }
 
+        page_jump_button.appendChild(page_jump_input)
         return page_jump_button
     }
 }

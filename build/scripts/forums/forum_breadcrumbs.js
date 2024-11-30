@@ -1,4 +1,4 @@
-import site_nav from "./site_nav.js"
+import site_nav from "../tools/site_nav.js"
 
 class ForumBreadcrumbs {
     constructor (subforums_data, current_subforum, url_vars){
