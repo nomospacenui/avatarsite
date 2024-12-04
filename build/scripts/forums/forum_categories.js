@@ -1,4 +1,5 @@
 import site_nav from "../tools/site_nav.js"
+import utils from "../tools/utils.js"
 
 class ForumCategories {
     constructor(categories, url_vars) {
@@ -49,7 +50,21 @@ class ForumCategories {
             
             var row_activity = document.createElement("div")
             row_activity.className = "category-win-body-cell"
-            row_activity.innerHTML = "Activity Activity Activity Activity Activity Activity Activity Activity"
+
+            if (!children[i].latest_activity)
+                row_activity.innerHTML = "-"
+            else {
+                var thread_name = null
+                if (children[i].latest_activity.length == 2)
+                    thread_name = children[i].latest_activity[1].name
+                else
+                    thread_name = children[i].latest_activity[0].name
+
+                var [display_time, relative_time] = utils.format_datetime(children[i].latest_activity[0].datetime)
+                row_activity.innerHTML = "USERNAME posted in " + thread_name + " about " + relative_time
+                row_activity.innerHTML += "<br/> View post"
+            }
+
             row.append(row_activity)
             
             category_win_body.append(row)

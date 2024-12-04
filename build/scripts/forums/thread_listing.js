@@ -2,8 +2,7 @@ import site_nav from "../tools/site_nav.js"
 import utils from "../tools/utils.js"
 
 class ThreadListing {
-    constructor(replies_data, thread_data, url_vars) {
-        this._replies_data = replies_data
+    constructor(thread_data, url_vars) {
         this._thread_data = thread_data
         this._url_vars = url_vars
 
@@ -69,23 +68,16 @@ class ThreadListing {
             row_author.innerHTML = "AUTHOR"
             row.append(row_author)
             
-            var num_replies = 0
-            var latest_reply = null
-            this._replies_data.forEach(reply => {
-                if (reply.thread_id == this._thread_data[i].id) {
-                    num_replies += 1
-                    latest_reply = reply
-                }
-            })
-            
             var row_description = document.createElement("div")
-            row_description.innerHTML = num_replies
+            row_description.innerHTML = this._thread_data[i].num_replies
             row.append(row_description)
             
             var row_activity = document.createElement("div")
-            var [display_time, relative_time] = utils.format_datetime(latest_reply.datetime)
-            if (latest_reply)
+            if (this._thread_data[i].latest_activity) {
+                var [display_time, relative_time] = utils.format_datetime(this._thread_data[i].latest_activity.datetime)
                 row_activity.innerHTML = "By USERNAME about " + relative_time
+                row_activity.innerHTML += "<br/> View post"
+            }
             else
                 row_activity.innerHTML = "-"
             row.append(row_activity)

@@ -57,14 +57,6 @@ class Database {
     }
 }
 
-async function get_all(table_name) {
-    return await get_all_from_table(table_name)
-}
-
-async function get_entry(table_name, id) {
-    return await get_entry_from_table(table_name, id)
-}
-
 async function get_all_from_table(table_name) {
     const db_obj = new Database()
     const db = await db_obj.init()
@@ -76,6 +68,34 @@ async function get_all_from_table(table_name) {
         
         get_request.onsuccess = function(e) {
             resolve(e.target.result)
+        }
+    })
+}
+
+async function get_filtered_from_table(table_name, conditions) {
+    const db_obj = new Database()
+    const db = await db_obj.init()
+
+    return new Promise(function(resolve, reject) {
+        var transaction = db.transaction(table_name, "readwrite")
+        var object_store = transaction.objectStore(table_name)
+        var get_request = object_store.getAll()
+        
+        get_request.onsuccess = function(e) {
+            var result = []
+            e.target.result.forEach( x => {
+                var fulfils_conditions = true
+                for (let [k, v] of Object.entries(conditions)) {
+                    if (x[k] != v)
+                        fulfils_conditions = false
+                }
+
+                if (fulfils_conditions) {
+                    result.push(x)
+                }
+            })
+
+            resolve(result)
         }
     })
 }
@@ -97,8 +117,9 @@ async function get_entry_from_table(table_name, id) {
 }
 
 const db_functions = {
-    get_all,
-    get_entry
+    get_all_from_table,
+    get_filtered_from_table,
+    get_entry_from_table
 }
 
 export default db_functions

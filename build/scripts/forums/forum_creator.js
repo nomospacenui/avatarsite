@@ -6,7 +6,7 @@ import db_functions from "../database/database.js"
 
 class ForumCreator {
     constructor() {
-        this._replies_per_page = 1
+        this._replies_per_page = 8
         this._non_url_vars = {}
         this._url_vars = {}
 
@@ -43,7 +43,6 @@ class ForumCreator {
     get_vars_from_url() {
         var url = String(window.location.href)
         
-        //no url vars
         if (url.lastIndexOf("?") == -1)
             return {}
 
@@ -70,17 +69,11 @@ class ForumCreator {
     }
 
     async init_thread_layout() {
-        const thread_data = await db_functions.get_entry("threads", this._url_vars["thread"])
-        var replies_data = await db_functions.get_all("replies")
-        const subforums_data = await db_functions.get_all("subforums")
+        const thread_data = await db_functions.get_entry_from_table("threads", this._url_vars["thread"])
+        var replies_data = await db_functions.get_filtered_from_table("replies", {"thread_id": this._url_vars["thread"]})
+        const subforums_data = await db_functions.get_all_from_table("subforums")
 
-        if (replies_data.length > 0) {
-            var relevant_replies_data = []
-            replies_data.forEach(element => {
-                if (element.thread_id == this._url_vars["thread"])
-                    relevant_replies_data.push(element)
-            })
-        
+        if (replies_data.length > 0) {        
             // page - 1 as page is counted from 1 onwards
             var start_reply = this._replies_per_page * (this._url_vars["page"] - 1)
             // - 1 since slice is inclusive of start and end
@@ -93,8 +86,8 @@ class ForumCreator {
             if (this._url_vars["page"] != 1)
                 --start_reply
             
-            this._non_url_vars["num_pages"] = Math.round(Number((relevant_replies_data.length / this._replies_per_page) + 0.5))
-            replies_data = relevant_replies_data.slice(start_reply, end_reply)
+            this._non_url_vars["num_pages"] = Math.round(Number((replies_data.length / this._replies_per_page) + 0.5))
+            replies_data = replies_data.slice(start_reply, end_reply)
         }
 
         new ForumBreadcrumbs(subforums_data, subforums_data[thread_data["subforum_id"]], this._url_vars)
@@ -104,26 +97,34 @@ class ForumCreator {
     }
 
     async init_subforum_layout() {
-        const thread_data = await db_functions.get_all("threads")
+        const thread_data = await db_functions.get_filtered_from_table("threads", {"subforum_id": this._url_vars.subforum})
         const subforums_data = await this.get_subforums()
 
         var page_title = document.getElementById("page_title")
         page_title.innerHTML = subforums_data[this._url_vars["subforum"]].name
 
         new ForumBreadcrumbs(subforums_data, subforums_data[this._url_vars["subforum"]], this._url_vars)
-        if (subforums_data[this._url_vars["subforum"]].children)
-            new ForumCategories([subforums_data[this._url_vars["subforum"]]], this._url_vars)
-        
-        var filtered_thread_data = []
-        for (var i = 0 ; i < thread_data.length ; ++i) {
-            if (thread_data[i].subforum_id == this._url_vars.subforum) {
-                filtered_thread_data.push(thread_data[i])
+        var subforum_children = subforums_data[this._url_vars["subforum"]].children
+
+        if (subforum_children) {
+            for (var i = 0 ; i < subforum_children.length ; ++i) {
+                const latest_activity = await this.get_subforum_latest_activity(subforum_children[i].id)
+                subforum_children[i]["latest_activity"] = latest_activity
             }
+
+            console.log(subforums_data[this._url_vars["subforum"]])
+            new ForumCategories([subforums_data[this._url_vars["subforum"]]], this._url_vars)
         }
 
-        if (filtered_thread_data.length > 0) {
-            var replies_data = await db_functions.get_all("replies")
-            new ThreadListing(replies_data, filtered_thread_data, this._url_vars)
+        if (thread_data.length > 0) {
+            for (var i = 0 ; i < thread_data.length ; ++i) {
+                const replies_data = await db_functions.get_filtered_from_table("replies", {"thread_id": thread_data[i].id})
+                const latest_activity = await this.get_thread_latest_activity(thread_data[i].id)
+                thread_data[i]["latest_activity"] = latest_activity
+                thread_data[i]["num_replies"] = replies_data.length
+            }
+
+            new ThreadListing(thread_data, this._url_vars)
         }
 
         return true
@@ -143,7 +144,7 @@ class ForumCreator {
     }
 
     async get_subforums() {
-        var subforums_data = await db_functions.get_all("subforums")
+        var subforums_data = await db_functions.get_all_from_table("subforums")
 
         for (var i = 0 ; i < subforums_data.length ; ++i) {
             const parent_id = subforums_data[i].parent_id
@@ -156,6 +157,57 @@ class ForumCreator {
         }
 
         return subforums_data
+    }
+
+    async get_subforum_latest_activity(subforum_id) {
+        var threads_data = await db_functions.get_all_from_table("threads")
+        var latest_activity = null
+
+        for (var i = 0 ; i < threads_data.length ; ++i) {
+            if (threads_data[i].subforum_id == subforum_id) {
+                const thread_activity = await this.get_thread_latest_activity(threads_data[i].id)
+                
+                if (latest_activity) {
+                    if (!thread_activity) {
+                        if (thread.datetime > latest_activity.datetime)
+                            latest_activity = [threads_data[i]]
+                    }
+
+                    else if (thread_activity.datetime > latest_activity.datetime){
+                        latest_activity = [thread_activity, threads_data[i]]
+                    }
+                }
+                
+                else {
+                    if (!thread_activity)
+                        latest_activity = [threads_data[i]]
+                    else
+                        latest_activity = [thread_activity, threads_data[i]]
+                }
+            }
+        }
+
+        return latest_activity
+    }
+
+    async get_thread_latest_activity(thread_id) {
+        var replies_data = await db_functions.get_all_from_table("replies")
+        var latest_activity = null
+
+        replies_data.forEach(reply => {
+            if (reply.thread_id == thread_id) {
+                
+                if (latest_activity) {
+                    if (reply.datetime > latest_activity.datetime)
+                        latest_activity = reply
+                }
+
+                else
+                    latest_activity = reply
+            }
+        })
+
+        return latest_activity
     }
 }
 
