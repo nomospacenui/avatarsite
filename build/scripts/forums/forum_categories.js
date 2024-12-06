@@ -50,17 +50,16 @@ class ForumCategories {
             
             var row_activity = document.createElement("div")
             row_activity.className = "category-win-body-cell"
-
+            
             if (!children[i].latest_activity)
                 row_activity.innerHTML = "-"
             else {
-                var thread_name = null
+                var thread_name = children[i].latest_activity["thread"].name
+                var datetime = children[i].latest_activity["thread"].datetime
                 if (children[i].latest_activity.length == 2)
-                    thread_name = children[i].latest_activity[1].name
-                else
-                    thread_name = children[i].latest_activity[0].name
+                    datetime = children[i].latest_activity["reply"].datetime
 
-                var [display_time, relative_time] = utils.format_datetime(children[i].latest_activity[0].datetime)
+                var [display_time, relative_time] = utils.format_datetime(datetime)
                 row_activity.innerHTML = "USERNAME posted in " + thread_name + " about " + relative_time
                 row_activity.innerHTML += "<br/> View post"
             }
