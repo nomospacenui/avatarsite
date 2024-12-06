@@ -25,6 +25,8 @@
 
 .category-win-body {
     @extend .miniwin-body;
+    display: table;
+    width: 99.5%;
     padding: 2px;
 }
 

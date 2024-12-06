@@ -134,16 +134,14 @@ class ForumCreator {
 
         var categories = []
         for (var i = 0 ; i < subforums_data.length ; ++i) {
-            if (subforums_data[i].parent_id == -1) {
+            if (subforums_data[i].parent_id == -1)
                 categories.push(subforums_data[i])
-            }
         }
 
         for (var i = 0 ; i < categories.length ; ++i) {
-            if (categories[i].children) {
-                for (var j = 0 ; j < categories[i].children.length ; ++j) {
-                    categories[i].children[j]["latest_activity"] = await this.get_subforum_latest_activity(categories[i].children[j].id)
-                }
+            for (var j = 0 ; j < categories[i].children.length ; ++j) {
+                var child = categories[i].children[j]
+                child["latest_activity"] = await this.get_subforum_latest_activity(child.id)
             }
         }
         
@@ -168,54 +166,36 @@ class ForumCreator {
     }
 
     async get_subforum_latest_activity(subforum_id) {
-        var threads_data = await db_functions.get_all_from_table("threads")
+        var threads_data = await db_functions.get_filtered_from_table("threads", {"subforum_id": subforum_id})
         var subforums_children = (await this.get_subforums())[subforum_id].children
         var latest_activity = null
 
         for (var i = 0 ; i < threads_data.length ; ++i) {
-            if (threads_data[i].subforum_id == subforum_id) {
-                const thread_activity = await this.get_thread_latest_activity(threads_data[i].id)
-                
-                if (latest_activity) {
-                    if (!thread_activity) {
-                        if (thread.datetime > latest_activity.datetime)
-                            latest_activity = {"thread": threads_data[i]}
-                    }
-
-                    else if (thread_activity.datetime > latest_activity.datetime){
-                        latest_activity = {"thread": threads_data[i], "reply": thread_activity}
-                    }
-                }
-                
-                else {
-                    if (!thread_activity)
-                        latest_activity = {"thread": threads_data[i]}
-                    else
-                        latest_activity = {"thread": threads_data[i], "reply": thread_activity}
-                }
+            const thread_activity = await this.get_thread_latest_activity(threads_data[i].id)
+            
+            if (!thread_activity) {
+                if (!latest_activity || thread.datetime > latest_activity.datetime)
+                    latest_activity = {"thread": threads_data[i]}
             }
+
+            else if (!latest_activity || thread_activity.datetime > latest_activity.datetime)
+                latest_activity = {"thread": threads_data[i], "reply": thread_activity}
         }
 
         if (subforums_children) {
             for (var j = 0 ; j < subforums_children.length ; ++j) {
-                const children_latest_activity = await this.get_subforum_latest_activity([subforums_children[j].id])
-                if (children_latest_activity) {
+                const child_latest_activity = await this.get_subforum_latest_activity([subforums_children[j].id])
+                if (!child_latest_activity)
+                    continue
 
-                    var children_datetime = null
-                    if ("reply" in children_latest_activity)
-                        children_datetime = children_latest_activity["reply"].datetime
-                    else 
-                        children_datetime = children_latest_activity["thread"].datetime
+                var child_datetime = "reply" in child_latest_activity ? child_latest_activity["reply"].datetime
+                                                                      : child_latest_activity["thread"].datetime
 
-                    var latest_datetime = null
-                    if ("reply" in latest_activity)
-                        latest_datetime = latest_activity["reply"].datetime
-                    else 
-                        latest_datetime = latest_activity["thread"].datetime
-                    
-                    if (children_datetime > latest_datetime)
-                        latest_activity = children_latest_activity
-                }
+                var latest_datetime = "reply" in latest_activity ? latest_activity["reply"].datetime
+                                                                 : latest_activity["thread"].datetime
+                
+                if (child_datetime > latest_datetime)
+                    latest_activity = child_latest_activity
             }
         }
 
@@ -229,10 +209,9 @@ class ForumCreator {
         replies_data.forEach(reply => {
             if (reply.thread_id == thread_id) {
                 
-                if (latest_activity) {
+                if (latest_activity)
                     if (reply.datetime > latest_activity.datetime)
                         latest_activity = reply
-                }
 
                 else
                     latest_activity = reply
