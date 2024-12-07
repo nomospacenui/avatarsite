@@ -3,18 +3,17 @@ import utils from "../tools/utils.js"
 class Post {
     constructor(post_data) {
         this._post_data = post_data
+        this._postcontent_container = document.getElementById("internal-body")
 
-        var postcontent_container = document.getElementById("internal-body")
-
-        postcontent_container.appendChild(this.create_actions())
+        this._postcontent_container.appendChild(this.create_actions())
 
         var bulk = document.createElement("div")
         bulk.className = "postbulk"
         bulk.appendChild(this.create_user())
         bulk.appendChild(this.create_win())
-        postcontent_container.appendChild(bulk)
+        this._postcontent_container.appendChild(bulk)
 
-        postcontent_container.appendChild(this.create_signature())
+        this._postcontent_container.appendChild(this.create_signature())
     }
 
     create_actions() {
@@ -111,6 +110,10 @@ class Post {
         post_signature.appendChild(post_signature_content);
         
         return post_signature
+    }
+
+    scroll_to() {
+        this._postcontent_container.scrollIntoView()
     }
 }
 

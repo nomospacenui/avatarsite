@@ -74,9 +74,29 @@ class ThreadListing {
             
             var row_activity = document.createElement("div")
             if (this._thread_data[i].latest_activity) {
-                var [display_time, relative_time] = utils.format_datetime(this._thread_data[i].latest_activity.datetime)
-                row_activity.innerHTML = "By USERNAME about " + relative_time
-                row_activity.innerHTML += "<br/> View post"
+                var datetime = this._thread_data[i].latest_activity.datetime
+
+                var [display_time, relative_time] = utils.format_datetime(datetime)
+                row_activity.innerHTML = "USERNAME posted"
+                
+                var row_activity_datetime = document.createElement("text")
+                row_activity_datetime.innerHTML = " about " + relative_time
+                row_activity.append(row_activity_datetime)
+                
+                var row_activity_viewpost = document.createElement("a")
+                row_activity_viewpost.href = site_nav.change_url_var(
+                    {
+                        "thread": this._thread_data[i].latest_activity.thread_id,
+                        "page": this._thread_data[i].latest_activity.page,
+                        "action": "jump_to_last"
+                    },
+                    this._url_vars,
+                    ["subforum"]
+                )
+
+                row_activity_viewpost.innerHTML = " View post >>"
+                row_activity_viewpost.className = "hyperlink"
+                row_activity.append(row_activity_viewpost)
             }
             else
                 row_activity.innerHTML = "-"

@@ -17,8 +17,14 @@ class Thread {
             new Post(thread_data)
 
         // Subsequent replies
-        for (var i = 0 ; i < replies_data.length ; ++i)
-            new Post(replies_data[i])
+        for (var i = 0 ; i < replies_data.length ; ++i) {
+            const post = new Post(replies_data[i])
+
+            if (("action" in url_vars) &&
+                (url_vars["action"] == "jump_to_last") &&
+                (i == replies_data.length - 1))
+                post.scroll_to()
+        }
 
         this.create_footer()
     }

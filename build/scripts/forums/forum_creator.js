@@ -20,12 +20,12 @@ class ForumCreator {
         if (this._url_vars) {
             if ("thread" in this._url_vars &&
                 "page" in this._url_vars &&
-                Object.keys(this._url_vars).length == 2)
+                !("subforum" in this._url_vars))
                 status = await this.init_thread_layout()
             
             else if ("subforum" in this._url_vars &&
                      "page" in this._url_vars &&
-                     Object.keys(this._url_vars).length == 2)
+                     !("thread" in this._url_vars))
                 status = await this.init_subforum_layout()
 
             else if (Object.keys(this._url_vars).length == 0)
@@ -51,7 +51,8 @@ class ForumCreator {
 
         url = url.substring(url.lastIndexOf("?") + 1)
         const url_vars_values = url.split("&")
-        const eligible_vars = ["page", "thread", "subforum"]
+        const eligible_vars_num = ["page", "thread", "subforum"]
+        const eligible_vars_str = ["action"]
         var url_vars = {}
 
         for (var i = 0 ; i < url_vars_values.length ; ++i) {
@@ -59,10 +60,14 @@ class ForumCreator {
             if (var_value == "")
                 continue
             
-            if (!eligible_vars.includes(var_value[0]))
+            if (eligible_vars_num.includes(var_value[0]))
+                url_vars[var_value[0]] = Number(var_value[1])
+                
+            else if (eligible_vars_str.includes(var_value[0]))
+                url_vars[var_value[0]] = var_value[1]
+
+            else
                 return false
-            
-            url_vars[var_value[0]] = Number(var_value[1])
         }
     
         return url_vars
@@ -205,18 +210,25 @@ class ForumCreator {
     async get_thread_latest_activity(thread_id) {
         var replies_data = await db_functions.get_all_from_table("replies")
         var latest_activity = null
+        var num_replies = 1
 
         replies_data.forEach(reply => {
             if (reply.thread_id == thread_id) {
+                num_replies = num_replies + 1
                 
-                if (latest_activity)
+                if (latest_activity) {
                     if (reply.datetime > latest_activity.datetime)
                         latest_activity = reply
+                }
 
                 else
                     latest_activity = reply
             }
         })
+
+        if (latest_activity) {
+            latest_activity["page"] = Math.round(num_replies / this._replies_per_page) + 1
+        }
 
         return latest_activity
     }
