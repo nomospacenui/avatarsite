@@ -24,7 +24,7 @@
   box-shadow: 0px 4px 4px 0px rgba(125, 82, 140, 0.1921568627);
 }
 
-.button, .button-accent {
+.button, .button-accent, .createthreadbutton {
   border-radius: 5px;
   background: #69ACA8;
   box-shadow: inset 0px 4px 6px 0px rgba(210, 255, 250, 0.3764705882);
@@ -38,18 +38,18 @@
   cursor: pointer;
 }
 
-.button:hover, .button-accent:hover {
+.button:hover, .button-accent:hover, .createthreadbutton:hover {
   background: #5e92a1;
   box-shadow: inset 0px 4px 6px 0px rgba(155, 213, 228, 0.3764705882);
 }
 
-.button-accent {
+.button-accent, .createthreadbutton {
   background: #7F8FC7;
   box-shadow: inset 0px 4px 6px 0px rgba(160, 186, 225, 0.7137254902);
   border: 1px solid #79629E;
 }
 
-.button-accent:hover {
+.button-accent:hover, .createthreadbutton:hover {
   background: #7574b8;
   box-shadow: inset 0px 4px 6px 0px rgba(139, 161, 209, 0.5607843137);
 }
@@ -97,6 +97,7 @@
 
 .category-win-body-cell {
   display: table-cell;
+  vertical-align: middle;
   padding: 24px;
   border-top: 1px solid #7D528C;
 }
@@ -106,7 +107,6 @@
   width: 100%;
   border-spacing: 0px;
   box-shadow: 0px 4px 4px 0px rgba(125, 82, 140, 0.1921568627);
-  margin-bottom: 32px;
 }
 
 .listing-win-header {
@@ -152,6 +152,7 @@
 
 .listing-win-body-cell, .listing-win-body-cell-br, .listing-win-body-cell-bm, .listing-win-body-cell-bl, .listing-win-body-cell-r, .listing-win-body-cell-m, .listing-win-body-cell-l {
   display: table-cell;
+  vertical-align: middle;
   padding: 12px;
   border-radius: 0px;
   box-shadow: 0px 0px 0px 0px rgba(125, 82, 140, 0.1921568627);
@@ -189,6 +190,20 @@
   border-bottom-right-radius: 5px;
   border-top: 0px;
   border-left: 0px;
+}
+
+.createthreadbutton {
+  margin: 12px;
+  font-size: 14px;
+  border: 1px solid #7D528C;
+  box-shadow: inset 0px 4px 6px 0px #E2B0DD;
+  background: #BD8ABE;
+}
+
+.createthreadbutton:hover {
+  border: 1px solid #5a4070;
+  box-shadow: inset 0px 4px 6px 0px #c399c7;
+  background: #9e77b1;
 }
 
 /*# sourceMappingURL=forum_style.css.map */

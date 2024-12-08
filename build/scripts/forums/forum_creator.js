@@ -7,6 +7,7 @@ import db_functions from "../database/database.js"
 class ForumCreator {
     constructor() {
         this._replies_per_page = 8
+        this._threads_per_page = 10
         this._non_url_vars = {}
         this._url_vars = {}
 
@@ -91,7 +92,7 @@ class ForumCreator {
             if (this._url_vars["page"] != 1)
                 --start_reply
             
-            this._non_url_vars["num_pages"] = Math.round(Number((replies_data.length / this._replies_per_page) + 0.5))
+            this._non_url_vars["num_pages"] = Math.ceil(replies_data.length / this._replies_per_page)
             replies_data = replies_data.slice(start_reply, end_reply)
         }
 
@@ -102,7 +103,7 @@ class ForumCreator {
     }
 
     async init_subforum_layout() {
-        const thread_data = await db_functions.get_filtered_from_table("threads", {"subforum_id": this._url_vars.subforum})
+        var thread_data = await db_functions.get_filtered_from_table("threads", {"subforum_id": this._url_vars.subforum})
         const subforums_data = await this.get_subforums()
 
         var page_title = document.getElementById("page_title")
@@ -120,7 +121,18 @@ class ForumCreator {
             new ForumCategories([subforums_data[this._url_vars["subforum"]]], this._url_vars)
         }
 
-        if (thread_data.length > 0) {
+        if (thread_data.length > 0) {      
+            // page - 1 as page is counted from 1 onwards
+            var start_thread = this._threads_per_page * (this._url_vars["page"] - 1)
+            // - 1 since slice is inclusive of start and end
+            var end_thread = start_thread + this._threads_per_page
+
+            if (start_thread > thread_data.length)
+                return false
+            
+            this._non_url_vars["num_pages"] = Math.ceil(thread_data.length / this._threads_per_page)
+            thread_data = thread_data.slice(start_thread, end_thread)
+
             for (var i = 0 ; i < thread_data.length ; ++i) {
                 const replies_data = await db_functions.get_filtered_from_table("replies", {"thread_id": thread_data[i].id})
                 const latest_activity = await this.get_thread_latest_activity(thread_data[i].id)
@@ -128,7 +140,7 @@ class ForumCreator {
                 thread_data[i]["num_replies"] = replies_data.length
             }
 
-            new ThreadListing(thread_data, this._url_vars)
+            new ThreadListing(thread_data, this._url_vars, this._non_url_vars)
         }
 
         return true
@@ -179,7 +191,7 @@ class ForumCreator {
             const thread_activity = await this.get_thread_latest_activity(threads_data[i].id)
             
             if (!thread_activity) {
-                if (!latest_activity || thread.datetime > latest_activity.datetime)
+                if (!latest_activity || threads_data[i].datetime > latest_activity.datetime)
                     latest_activity = {"thread": threads_data[i]}
             }
 

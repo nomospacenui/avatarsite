@@ -102,3 +102,58 @@ body {
 .hyperlink:hover {
     color: rgb(60, 88, 139);
 }
+
+.pagebutton {
+    @extend .button;
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    font-size: 12px;
+    padding: 6px;
+    height: 14px;
+    width: 14px;
+    border-radius: 0px;
+    text-decoration: none;
+}
+
+.pagebutton-accent {
+    @extend .pagebutton;
+    background: #9a9ba0;
+    box-shadow: inset 0px 4px 6px 0px #d5d6d8b6;
+    border: 1px solid #6f6c75;
+}
+
+.pagebutton-accent:hover {
+    @extend .pagebutton;
+    background: #797a7e;
+    box-shadow: inset 0px 4px 6px 0px #b9babdb6;
+    border: 1px solid #58555e;
+}
+
+.pagebuttons {
+    display: table-row;
+    width: 100%;
+}
+
+.pagebuttons-space {
+    display: table-cell;
+    width: 15%;
+    min-width: 180px;
+}
+
+.pagebuttonscontainer {
+    display: inline-block;
+    float: right;
+}
+
+.pagebuttonjumpinput{
+    visibility: hidden;
+    position: absolute;
+    padding: 8px;
+    margin: 8px;
+    font-size: 12px;
+    height: 6px;
+    width: 74px;
+    left: -45px;
+    top: -40px;
+}

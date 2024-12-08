@@ -19,7 +19,7 @@ class ForumCategories {
         var category_win_header = document.createElement("a")
         category_win_header.className = "category-win-header"
         category_win_header.innerHTML = category.name
-        category_win_header.href = site_nav.change_url_var({"subforum": category.id, "page": 0}, this._url_vars)
+        category_win_header.href = site_nav.change_url_var({"subforum": category.id, "page": 1}, this._url_vars)
 
         category_win.append(category_win_header)
         category_win.append(this.create_children_rows(category.children))
@@ -34,7 +34,7 @@ class ForumCategories {
         for (var i = 0 ; i < children.length ; ++i) {
             var row = document.createElement("a")
             row.className = "category-win-body-row"
-            row.href = site_nav.change_url_var({"subforum": children[i].id, "page": 0}, this._url_vars)
+            row.href = site_nav.change_url_var({"subforum": children[i].id, "page": 1}, this._url_vars)
             
             var row_name = document.createElement("div")
             row_name.className = "category-win-body-cell"
