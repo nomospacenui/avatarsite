@@ -1,0 +1,29 @@
+@use "style";
+
+.title-input {
+    @extend .miniwin-body;
+    display:block;
+    width: 70%;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-size: 14px;
+}
+
+.content-header {
+    @extend .miniwin-header;
+    display:block;
+    width: 70%;
+    padding: 18px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    margin-top: 24px;
+}
+
+.content-input {
+    @extend .miniwin-body;
+    display:block;
+    width: 70%;
+    height: 300px;
+    font-family: "Arial";
+    font-size: 14px;
+}

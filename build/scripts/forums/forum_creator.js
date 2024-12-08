@@ -3,6 +3,7 @@ import ForumCategories from "./forum_categories.js"
 import ForumBreadcrumbs from "./forum_breadcrumbs.js"
 import ThreadListing from "./thread_listing.js"
 import db_functions from "../database/database.js"
+import CreateThread from "./create_thread.js"
 
 class ForumCreator {
     constructor() {
@@ -19,9 +20,17 @@ class ForumCreator {
         this._url_vars = this.get_vars_from_url()
 
         if (this._url_vars) {
-            if ("thread" in this._url_vars &&
-                "page" in this._url_vars &&
-                !("subforum" in this._url_vars))
+            if ("action" in this._url_vars &&
+                this._url_vars["action"] == "create_thread")
+                status = await this.init_create_thread_layout()
+
+            else if ("action" in this._url_vars &&
+                this._url_vars["action"] == "create_reply")
+                status = await this.init_create_reply_layout()
+
+            else if ("thread" in this._url_vars &&
+                     "page" in this._url_vars &&
+                     !("subforum" in this._url_vars))
                 status = await this.init_thread_layout()
             
             else if ("subforum" in this._url_vars &&
@@ -72,6 +81,14 @@ class ForumCreator {
         }
     
         return url_vars
+    }
+
+    async init_create_thread_layout() {
+        new CreateThread()
+    }
+
+    async init_create_reply_layout() {
+        new CreateReply()
     }
 
     async init_thread_layout() {

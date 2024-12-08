@@ -1,0 +1,82 @@
+.miniwin-header, .content-header {
+  position: relative;
+  margin: auto;
+  border-radius: 5px;
+  background: #BD8ABE;
+  color: #ffffff;
+  padding: 6px;
+  border: 1px solid #7D528C;
+  box-shadow: inset 0px 4px 6px 0px #E2B0DD, 0px 4px 4px 0px rgba(125, 82, 140, 0.231372549);
+  z-index: 1;
+  font-size: 14px;
+}
+
+.miniwin-body, .title-input, .content-input {
+  position: relative;
+  margin: auto;
+  margin-top: -8px;
+  border-radius: 5px;
+  background: #EAE2F5;
+  color: #555555;
+  padding: 18px;
+  padding-top: 24px;
+  border: 1px solid #BD8ABE;
+  box-shadow: 0px 4px 4px 0px rgba(125, 82, 140, 0.1921568627);
+}
+
+.button, .button-accent {
+  border-radius: 5px;
+  background: #69ACA8;
+  box-shadow: inset 0px 4px 6px 0px rgba(210, 255, 250, 0.3764705882);
+  border: 1px solid #427C9C;
+  color: #ffffff;
+  padding: 6px;
+  padding-left: 14px;
+  padding-right: 14px;
+  transition-duration: 0.3s;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.button:hover, .button-accent:hover {
+  background: #5e92a1;
+  box-shadow: inset 0px 4px 6px 0px rgba(155, 213, 228, 0.3764705882);
+}
+
+.button-accent {
+  background: #7F8FC7;
+  box-shadow: inset 0px 4px 6px 0px rgba(160, 186, 225, 0.7137254902);
+  border: 1px solid #79629E;
+}
+
+.button-accent:hover {
+  background: #7574b8;
+  box-shadow: inset 0px 4px 6px 0px rgba(139, 161, 209, 0.5607843137);
+}
+
+.title-input {
+  display: block;
+  width: 70%;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 14px;
+}
+
+.content-header {
+  display: block;
+  width: 70%;
+  padding: 18px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  margin-top: 24px;
+}
+
+.content-input {
+  display: block;
+  width: 70%;
+  height: 300px;
+  font-family: "Arial";
+  font-size: 14px;
+}
+
+/*# sourceMappingURL=forum_create_style.css.map */
