@@ -9,9 +9,13 @@
     font-size: 14px;
 }
 
+.title-input:focus {
+    outline: none;
+}
+
 .content-header {
     @extend .miniwin-header;
-    display:block;
+    display: block;
     width: 70%;
     padding: 18px;
     padding-top: 12px;
@@ -19,11 +23,29 @@
     margin-top: 24px;
 }
 
+.content-body {
+    @extend .miniwin-body;
+    display: block;
+    width: 70%;
+    text-align: center;
+}
+
 .content-input {
     @extend .miniwin-body;
-    display:block;
-    width: 70%;
+    margin-top:12px;
+    width: 90%;
     height: 300px;
     font-family: "Arial";
     font-size: 14px;
+    resize: none;
+}
+
+.content-input:focus {
+    resize: none;
+    width: 90%;
+}
+
+.text-buttons {
+    width: 32px;
+    height: 32px;
 }
