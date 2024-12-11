@@ -48,4 +48,36 @@
 .text-buttons {
     width: 32px;
     height: 32px;
+    margin: 2px;
+}
+
+.text-buttons-dropdown {
+    position: relative;
+    width: 64px;
+    height: 32px;
+    margin: 2px;
+}
+
+.text-buttons-content {
+    @extend .miniwin-body;
+    display: block;
+    position: absolute;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    margin: 0px;
+    padding: 0px;
+    width: 62px;
+    z-index: 1;
+    left: -2px;
+    top: 27px;
+    visibility: hidden;
+}
+
+.text-buttons-content-entry {
+    padding: 4px;
+    margin: 0px;
+}
+
+.text-buttons-content-entry:hover {
+    background-color: #cfc8df;
 }
