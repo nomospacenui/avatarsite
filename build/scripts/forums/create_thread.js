@@ -29,67 +29,57 @@ class CreateThread {
     create_buttons(input_box) {
         var buttons_menu = document.createElement("toolbar")
 
-        var bold_button = document.createElement("button")
-        bold_button.className = "text-buttons"
-        bold_button.innerHTML = "<b>B</b>"
-        bold_button.onclick = function() { modifier_button_click(input_box, "<b>", "</b>") }
-        buttons_menu.append(bold_button)
+        buttons_menu.append(this.create_modifier_button(input_box, "<b>B</b>", "<b>", "</b>"))
+        buttons_menu.append(this.create_modifier_button(input_box, "<i>I</i>", "<i>", "</i>"))
+        buttons_menu.append(this.create_modifier_button(input_box, "<u>U</u>", "<u>", "</u>"))
+        buttons_menu.append(this.create_modifier_button(input_box, "<s>S</s>", "<s>", "</s>"))
 
-        var italics_button = document.createElement("button")
-        italics_button.className = "text-buttons"
-        italics_button.innerHTML = "<i>I</i>"
-        italics_button.onclick = function() { modifier_button_click(input_box, "<i>", "</i>") }
-        buttons_menu.append(italics_button)
-
-        var underline_button = document.createElement("button")
-        underline_button.className = "text-buttons"
-        underline_button.innerHTML = "<u>U</u>"
-        underline_button.onclick = function() { modifier_button_click(input_box, "<u>", "</u>") }
-        buttons_menu.append(underline_button)
+        buttons_menu.append(this.create_modifier_button(input_box, "Le", "<p style='text-align: left'>", "</p>"))
+        buttons_menu.append(this.create_modifier_button(input_box, "Ce", "<p style='text-align: center'>", "</p>"))
+        buttons_menu.append(this.create_modifier_button(input_box, "Ri", "<p style='text-align: right'>", "</p>"))
         
-        var left_align_button = document.createElement("button")
-        left_align_button.className = "text-buttons"
-        left_align_button.innerHTML = "L"
-        left_align_button.onclick = function() { modifier_button_click(input_box, "<p style='text-align: left'>", "</p>") }
-        buttons_menu.append(left_align_button)
+        var font_size_contents = [10, 12, 14, 16, 20, 22, 24]
+        buttons_menu.append(this.create_dropdown_modifier_button(input_box, "font size", font_size_contents, "font-size: "))
         
-        var center_align_button = document.createElement("button")
-        center_align_button.className = "text-buttons"
-        center_align_button.innerHTML = "C"
-        center_align_button.onclick = function() { modifier_button_click(input_box, "<p style='text-align: center'>", "</p>") }
-        buttons_menu.append(center_align_button)
-        
-        var right_align_button = document.createElement("button")
-        right_align_button.className = "text-buttons"
-        right_align_button.innerHTML = "R"
-        right_align_button.onclick = function() { modifier_button_click(input_box, "<p style='text-align: right'>", "</p>") }
-        buttons_menu.append(right_align_button)
-        
-        var font_size_dropdown = document.createElement("button")
-        font_size_dropdown.className = "text-buttons-dropdown"
-        font_size_dropdown.innerHTML = "font size"
-        
-        var font_size_dropdown_content = document.createElement("div")
-        font_size_dropdown_content.className = "text-buttons-content"
-        font_size_dropdown.onclick = function() { 
-            font_size_dropdown_content.style.visibility = (font_size_dropdown_content.style.visibility == "visible") ?
-                "hidden" :
-                "visible"
-        }
-        
-        for (var i = 10 ; i <= 24 ; i += 2) {
-            var font_size = document.createElement("p")
-            font_size.innerHTML = i
-            font_size.className = "text-buttons-content-entry"
-            const c_i = i
-            font_size.onclick = function() { modifier_button_click(input_box, "<p style='font-size:" + c_i + "'>", "</p>") }
-            font_size_dropdown_content.append(font_size)
-        }
-
-        font_size_dropdown.append(font_size_dropdown_content)
-        buttons_menu.append(font_size_dropdown)
+        var font_style_contents = ["Arial", "Verdana", "Tahoma", "Times New Roman", "Georgia", "Courier New"]
+        buttons_menu.append(this.create_dropdown_modifier_button(input_box, "font style", font_style_contents, "font-family: ", true))
 
         return buttons_menu
+    }
+
+    create_modifier_button(input_box, display, modifier_start, modifier_end) {
+        var button = document.createElement("button")
+        button.className = "text-buttons"
+        button.innerHTML = display
+        button.onclick = function() { modifier_button_click(input_box, modifier_start, modifier_end) }
+        return button
+    }
+
+    create_dropdown_modifier_button(input_box, display, contents, modifier, apply_style_to_content = false) {
+        var button = document.createElement("button")
+        button.className = "text-buttons-dropdown"
+        button.innerHTML = display
+        
+        var dropdown_content = document.createElement("div")
+        dropdown_content.className = "text-buttons-content"
+        
+        button.onclick = function() { 
+            dropdown_content.style.visibility = (dropdown_content.style.visibility == "visible") ? "hidden" : "visible"
+        }
+        
+        contents.forEach(x => {
+            var content = document.createElement("div")
+            if (apply_style_to_content) 
+                content.innerHTML = "<font style='" + modifier + x + "'>" + x + "</font>"
+            else
+                content.innerHTML = x
+            content.className = "text-buttons-content-entry"
+            content.onclick = function() { modifier_button_click(input_box, "<font style='" + modifier + x + "'>", "</font>") }
+            dropdown_content.append(content)
+        });
+
+        button.append(dropdown_content)
+        return button
     }
 }
 
