@@ -11,7 +11,7 @@
   font-size: 14px;
 }
 
-.miniwin-body, .title-input, .content-body, .content-input, .text-buttons-content {
+.miniwin-body, .title-input, .content-body, .content-input, .text-button-content, .text-button-input-content {
   position: relative;
   margin: auto;
   margin-top: -8px;
@@ -24,7 +24,7 @@
   box-shadow: 0px 4px 4px 0px rgba(125, 82, 140, 0.1921568627);
 }
 
-.button, .button-accent {
+.button, .text-button-input-submit, .button-accent {
   border-radius: 5px;
   background: #69ACA8;
   box-shadow: inset 0px 4px 6px 0px rgba(210, 255, 250, 0.3764705882);
@@ -38,7 +38,7 @@
   cursor: pointer;
 }
 
-.button:hover, .button-accent:hover {
+.button:hover, .text-button-input-submit:hover, .button-accent:hover {
   background: #5e92a1;
   box-shadow: inset 0px 4px 6px 0px rgba(155, 213, 228, 0.3764705882);
 }
@@ -95,40 +95,120 @@
   width: 90%;
 }
 
-.text-buttons {
+.text-button, .text-button-image {
   width: 32px;
   height: 32px;
   margin: 2px;
+  font-size: 13px;
+  border-radius: 5px;
+  border: 1px solid #BD8ABE;
+  background: #EAE2F5;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-.text-buttons-dropdown {
+.text-button:hover, .text-button-image:hover {
+  background: #dccfe4;
+  color: #dccfe4;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.text-button-image {
+  color: #EAE2F5;
+}
+
+.text-button-image:hover {
+  color: #dccfe4;
+}
+
+.text-button-divider {
+  padding: 16px;
+}
+
+.text-button-dropdown {
   position: relative;
-  width: 80px;
+  width: 70px;
   height: 32px;
   margin: 2px;
+  border-radius: 5px;
+  border: 1px solid #BD8ABE;
+  background: #EAE2F5;
 }
 
-.text-buttons-content {
+.text-button-dropdown:hover {
+  background: #dccfe4;
+}
+
+.text-button-content, .text-button-input-content {
   display: block;
   position: absolute;
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
   margin: 0px;
   padding: 0px;
-  width: 78px;
+  width: 68px;
   z-index: 1;
-  left: -2px;
+  left: -1px;
   top: 27px;
   visibility: hidden;
 }
 
-.text-buttons-content-entry {
-  padding: 8px;
-  margin: 0px;
+.text-button-content-entry {
+  padding: 4px;
+  margin: 2px;
 }
 
-.text-buttons-content-entry:hover {
+.text-button-content-entry:hover {
   background-color: #cfc8df;
+}
+
+.tiny-button {
+  display: inline-block;
+  margin-top: 4px;
+  margin-bottom: 0px;
+  margin-right: 2px;
+  margin-left: 2px;
+  height: 18px;
+  width: 18px;
+  border: 1px solid #BD8ABE;
+}
+
+.text-button-input {
+  position: relative;
+  width: 36px;
+  height: 32px;
+  margin: 2px;
+  border-radius: 5px;
+  border: 1px solid #BD8ABE;
+  background: #EAE2F5;
+  color: #EAE2F5;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.text-button-input:hover {
+  background: #dccfe4;
+  color: #dccfe4;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.text-button-input-content {
+  padding: 4px;
+  width: 168px;
+  border-top-right-radius: 5px;
+  text-align: center;
+}
+
+.text-button-input-content-entry {
+  margin: 4px;
+}
+
+.text-button-input-submit {
+  margin: 4px;
+  font-size: 12px;
+  transition-duration: 0s;
 }
 
 /*# sourceMappingURL=forum_create_style.css.map */

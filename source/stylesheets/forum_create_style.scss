@@ -45,20 +45,53 @@
     width: 90%;
 }
 
-.text-buttons {
+.text-button {
     width: 32px;
     height: 32px;
     margin: 2px;
+    font-size: 13px;
+    border-radius: 5px;
+    border: 1px solid #BD8ABE;
+    background: #EAE2F5;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
-.text-buttons-dropdown {
+.text-button:hover {
+    background: #dccfe4;
+    color: #dccfe4;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.text-button-image {
+    @extend .text-button;
+    color: #EAE2F5;
+}
+
+.text-button-image:hover {
+    color: #dccfe4;
+}
+
+.text-button-divider {
+    padding: 16px;
+}
+
+.text-button-dropdown {
     position: relative;
-    width: 80px;
+    width: 70px;
     height: 32px;
     margin: 2px;
+    border-radius: 5px;
+    border: 1px solid #BD8ABE;
+    background: #EAE2F5;
 }
 
-.text-buttons-content {
+.text-button-dropdown:hover {
+    background: #dccfe4;
+}
+
+.text-button-content {
     @extend .miniwin-body;
     display: block;
     position: absolute;
@@ -66,18 +99,68 @@
     border-top-right-radius: 0px;
     margin: 0px;
     padding: 0px;
-    width: 78px;
+    width: 68px;
     z-index: 1;
-    left: -2px;
+    left: -1px;
     top: 27px;
     visibility: hidden;
 }
 
-.text-buttons-content-entry {
-    padding: 8px;
-    margin: 0px;
+.text-button-content-entry {
+    padding: 4px;
+    margin: 2px;
 }
 
-.text-buttons-content-entry:hover {
+.text-button-content-entry:hover {
     background-color: #cfc8df;
+}
+
+.tiny-button {
+    display: inline-block;
+    margin-top: 4px;
+    margin-bottom: 0px;
+    margin-right: 2px;
+    margin-left: 2px;
+    height: 18px;
+    width: 18px;
+    border: 1px solid #BD8ABE;
+}
+
+.text-button-input {
+    position: relative;
+    width: 36px;
+    height: 32px;
+    margin: 2px;
+    border-radius: 5px;
+    border: 1px solid #BD8ABE;
+    background: #EAE2F5;
+    color: #EAE2F5;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.text-button-input:hover {
+    background: #dccfe4;
+    color: #dccfe4;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.text-button-input-content {
+    @extend .text-button-content;
+    padding: 4px;
+    width: 168px;
+    border-top-right-radius: 5px;
+    text-align: center;
+}
+
+.text-button-input-content-entry {
+    margin: 4px;
+}
+
+.text-button-input-submit {
+    @extend .button;
+    margin: 4px;
+    font-size: 12px;
+    transition-duration: 0s;
 }
