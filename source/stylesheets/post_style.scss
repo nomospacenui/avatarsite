@@ -85,4 +85,7 @@
     @extend .miniwin-body;
     height: 200px;
     margin-right: 42px;
+    text-wrap: wrap;
+    overflow: hidden;
+    max-width: 1000px;
 }

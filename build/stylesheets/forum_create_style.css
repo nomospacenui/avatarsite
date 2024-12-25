@@ -11,7 +11,7 @@
   font-size: 14px;
 }
 
-.miniwin-body, .title-input, .content-body, .content-input, .text-button-content, .text-button-input-content {
+.miniwin-body, .title-input, .content-body, .content-input, .text-button-content, .text-button-input-content, .preview-body {
   position: relative;
   margin: auto;
   margin-top: -8px;
@@ -69,13 +69,14 @@
 .content-header {
   display: block;
   width: 70%;
+  height: 16px;
   padding: 18px;
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding-top: 6px;
+  padding-bottom: 6px;
   margin-top: 24px;
 }
 
-.content-body {
+.content-body, .preview-body {
   display: block;
   width: 70%;
   text-align: center;
@@ -83,6 +84,7 @@
 
 .content-input {
   margin-top: 12px;
+  margin-bottom: 12px;
   width: 90%;
   height: 300px;
   font-family: "Arial";
@@ -95,59 +97,33 @@
   width: 90%;
 }
 
-.text-button, .text-button-image {
-  width: 32px;
-  height: 32px;
+.text-button {
+  position: relative;
   margin: 2px;
+  padding: 2px;
+  padding-top: 0px;
+  padding-bottom: 0px;
   font-size: 13px;
   border-radius: 5px;
   border: 1px solid #BD8ABE;
   background: #EAE2F5;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
-.text-button:hover, .text-button-image:hover {
+.text-button:hover {
   background: #dccfe4;
-  color: #dccfe4;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.text-button-image {
-  color: #EAE2F5;
-}
-
-.text-button-image:hover {
-  color: #dccfe4;
 }
 
 .text-button-divider {
   padding: 16px;
 }
 
-.text-button-dropdown {
-  position: relative;
-  width: 70px;
-  height: 32px;
-  margin: 2px;
-  border-radius: 5px;
-  border: 1px solid #BD8ABE;
-  background: #EAE2F5;
-}
-
-.text-button-dropdown:hover {
-  background: #dccfe4;
-}
-
 .text-button-content, .text-button-input-content {
   display: block;
   position: absolute;
   border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
   margin: 0px;
-  padding: 0px;
-  width: 68px;
+  padding: 2px;
+  width: 52px;
   z-index: 1;
   left: -1px;
   top: 27px;
@@ -182,16 +158,11 @@
   border-radius: 5px;
   border: 1px solid #BD8ABE;
   background: #EAE2F5;
-  color: #EAE2F5;
-  background-position: center;
-  background-repeat: no-repeat;
+  color: rgba(234, 226, 245, 0);
 }
 
 .text-button-input:hover {
   background: #dccfe4;
-  color: #dccfe4;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 .text-button-input-content {
@@ -208,7 +179,14 @@
 .text-button-input-submit {
   margin: 4px;
   font-size: 12px;
-  transition-duration: 0s;
+  transition: background 0.1s ease-in;
+}
+
+.preview-body {
+  text-align: left;
+  font-size: 14px;
+  text-wrap: wrap;
+  overflow: hidden;
 }
 
 /*# sourceMappingURL=forum_create_style.css.map */
