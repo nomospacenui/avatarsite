@@ -83,7 +83,8 @@
 
 .postwin-body {
     @extend .miniwin-body;
-    height: 200px;
+    min-height: 200px;
+    height: auto;
     margin-right: 42px;
     text-wrap: wrap;
     overflow: hidden;

@@ -18,7 +18,7 @@ class Database {
                     
                     const table_name = json_content["objects"][i]["name"]
                     const primary_key = json_content["objects"][i]["columns"][0]["name"]
-                    var object_store = db.createObjectStore(table_name, {keyPath: primary_key})
+                    var object_store = db.createObjectStore(table_name, {keyPath: primary_key, autoIncrement: true})
                     
                     var cols = [primary_key]
                     for (var j = 1 ; j < json_content["objects"][i]["columns"].length; ++j) {
@@ -55,6 +55,18 @@ class Database {
             }
         })
     }
+}
+
+async function create_entry_in_table(table_name, data) {
+    const db_obj = new Database()
+    const db = await db_obj.init()
+
+    return new Promise(function(resolve, reject) {
+        var transaction = db.transaction(table_name, "readwrite")
+        var object_store = transaction.objectStore(table_name)
+        object_store.add(data)
+        resolve()
+    })
 }
 
 async function get_all_from_table(table_name) {
@@ -117,6 +129,7 @@ async function get_entry_from_table(table_name, id) {
 }
 
 const db_functions = {
+    create_entry_in_table,
     get_all_from_table,
     get_filtered_from_table,
     get_entry_from_table

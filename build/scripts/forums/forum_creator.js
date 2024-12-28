@@ -1,9 +1,9 @@
-import Thread from "./thread.js"
-import ForumCategories from "./forum_categories.js"
+import db_functions from "../database.js"
 import ForumBreadcrumbs from "./forum_breadcrumbs.js"
+import InputForm from "./forum_inputform.js"
+import Categories from "./categories.js"
 import ThreadListing from "./thread_listing.js"
-import db_functions from "../database/database.js"
-import CreateThread from "./create_thread.js"
+import Thread from "./thread.js"
 
 class ForumCreator {
     constructor() {
@@ -20,12 +20,14 @@ class ForumCreator {
         this._url_vars = this.get_vars_from_url()
 
         if (this._url_vars) {
-            if ("action" in this._url_vars &&
+            if ("subforum" in this._url_vars &&
+                "action" in this._url_vars &&
                 this._url_vars["action"] == "create_thread")
                 status = await this.init_create_thread_layout()
 
-            else if ("action" in this._url_vars &&
-                this._url_vars["action"] == "create_reply")
+            else if ("thread" in this._url_vars &&
+                     "action" in this._url_vars &&
+                     this._url_vars["action"] == "create_reply")
                 status = await this.init_create_reply_layout()
 
             else if ("thread" in this._url_vars &&
@@ -84,11 +86,15 @@ class ForumCreator {
     }
 
     async init_create_thread_layout() {
-        new CreateThread()
+        const subforums_data = await db_functions.get_all_from_table("subforums")
+        new ForumBreadcrumbs(subforums_data, subforums_data[this._url_vars["subforum"]], this._url_vars)
+        new InputForm(this._url_vars)
     }
 
     async init_create_reply_layout() {
-        new CreateReply()
+        const subforums_data = await db_functions.get_all_from_table("subforums")
+        new ForumBreadcrumbs(subforums_data, subforums_data[this._url_vars["subforum"]], this._url_vars)
+        new InputForm(this._url_vars)
     }
 
     async init_thread_layout() {
@@ -135,10 +141,10 @@ class ForumCreator {
                 subforum_children[i]["latest_activity"] = latest_activity
             }
 
-            new ForumCategories([subforums_data[this._url_vars["subforum"]]], this._url_vars)
+            new Categories([subforums_data[this._url_vars["subforum"]]], this._url_vars)
         }
 
-        if (thread_data.length > 0) {      
+        if (subforums_data[this._url_vars["subforum"]].threads_enabled) {      
             // page - 1 as page is counted from 1 onwards
             var start_thread = this._threads_per_page * (this._url_vars["page"] - 1)
             // - 1 since slice is inclusive of start and end
@@ -179,7 +185,7 @@ class ForumCreator {
             }
         }
         
-        new ForumCategories(categories, this._url_vars)
+        new Categories(categories, this._url_vars)
         return true
     }
 

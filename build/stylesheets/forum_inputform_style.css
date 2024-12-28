@@ -11,7 +11,7 @@
   font-size: 14px;
 }
 
-.miniwin-body, .title-input, .content-body, .content-input, .text-button-content, .text-button-input-content, .preview-body {
+.miniwin-body, .title-input, .content-body, .content-input, .text-button-content, .preview-body {
   position: relative;
   margin: auto;
   margin-top: -8px;
@@ -59,6 +59,7 @@
   width: 70%;
   padding-top: 8px;
   padding-bottom: 8px;
+  margin-top: 8px;
   font-size: 14px;
 }
 
@@ -117,17 +118,18 @@
   padding: 16px;
 }
 
-.text-button-content, .text-button-input-content {
+.text-button-content {
   display: block;
   position: absolute;
-  border-top-left-radius: 0px;
   margin: 0px;
-  padding: 2px;
-  width: 52px;
   z-index: 1;
   left: -1px;
-  top: 27px;
+  top: 24px;
   visibility: hidden;
+  padding: 4px;
+  width: 168px;
+  border-top-left-radius: 0px;
+  text-align: center;
 }
 
 .text-button-content-entry {
@@ -165,13 +167,6 @@
   background: #dccfe4;
 }
 
-.text-button-input-content {
-  padding: 4px;
-  width: 168px;
-  border-top-right-radius: 5px;
-  text-align: center;
-}
-
 .text-button-input-content-entry {
   margin: 4px;
 }
@@ -189,4 +184,4 @@
   overflow: hidden;
 }
 
-/*# sourceMappingURL=forum_create_style.css.map */
+/*# sourceMappingURL=forum_inputform_style.css.map */

@@ -90,6 +90,12 @@ class ThreadListing {
         thread_createthread_button.innerHTML = "Create Thread"
         thread_page_buttons_container.appendChild(thread_createthread_button)
 
+        function create_thread_redirect(url_vars) {
+            site_nav.go_to_url(site_nav.change_url_var({"action": "create_thread"}, url_vars, ["page"]))
+        }
+
+        thread_createthread_button.onclick = create_thread_redirect.bind(null, this._url_vars)
+
         return thread_page_buttons
     }
 
@@ -102,9 +108,7 @@ class ThreadListing {
         return page_navigation_button
     }
 
-    create_page_jump_button() {
-        const current_page = this._url_vars["page"]
-        
+    create_page_jump_button() {        
         const page_jump_button = document.createElement("popup")
         page_jump_button.className = "pagebutton"
         page_jump_button.innerHTML = "..."
@@ -166,6 +170,29 @@ class ThreadListing {
     create_listing_rows() {
         var rows = []
 
+        if (this._thread_data.length == 0) {
+            var row = document.createElement("div")
+            row.className = "listing-win-body-row"
+            
+            var row_name = document.createElement("div")
+            var row_author = document.createElement("div")
+            var row_description = document.createElement("div")
+            var row_activity = document.createElement("div")
+            
+            row_name.innerHTML = "No threads created yet"
+
+            row_name.className = "listing-win-body-cell-bl"
+            row_author.className = "listing-win-body-cell-bm"
+            row_description.className = "listing-win-body-cell-bm"
+            row_activity.className = "listing-win-body-cell-br"
+            
+            row.append(row_name)
+            row.append(row_author)
+            row.append(row_description)
+            row.append(row_activity)
+            rows.push(row)
+        }
+
         for (var i = 0 ; i < this._thread_data.length ; ++i) {
             var row = document.createElement("a")
             row.className = "listing-win-body-row"
@@ -186,9 +213,8 @@ class ThreadListing {
             row.append(row_description)
             
             var row_activity = document.createElement("div")
-            if (!this._thread_data[i].latest_activity) {
+            if (!this._thread_data[i].latest_activity)
                 this._thread_data[i].latest_activity = this._thread_data[i]
-            }
 
             var datetime = this._thread_data[i].latest_activity.datetime
 

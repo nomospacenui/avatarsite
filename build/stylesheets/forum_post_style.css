@@ -133,11 +133,12 @@
 }
 
 .postwin-body {
-  height: 200px;
+  min-height: 200px;
+  height: auto;
   margin-right: 42px;
   text-wrap: wrap;
   overflow: hidden;
   max-width: 1000px;
 }
 
-/*# sourceMappingURL=post_style.css.map */
+/*# sourceMappingURL=forum_post_style.css.map */

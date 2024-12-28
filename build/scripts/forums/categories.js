@@ -1,7 +1,7 @@
 import site_nav from "../tools/site_nav.js"
 import utils from "../tools/utils.js"
 
-class ForumCategories {
+class Categories {
     constructor(categories, url_vars) {
         this._categories = categories
         this._url_vars = url_vars
@@ -97,4 +97,4 @@ class ForumCategories {
     }
 }
 
-export default ForumCategories
+export default Categories

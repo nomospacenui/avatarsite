@@ -6,6 +6,7 @@
     width: 70%;
     padding-top: 8px;
     padding-bottom: 8px;
+    margin-top: 8px;
     font-size: 14px;
 }
 
@@ -71,14 +72,15 @@
     @extend .miniwin-body;
     display: block;
     position: absolute;
-    border-top-left-radius: 0px;
     margin: 0px;
-    padding: 2px;
-    width: 52px;
     z-index: 1;
     left: -1px;
-    top: 27px;
+    top: 24px;
     visibility: hidden;
+    padding: 4px;
+    width: 168px;
+    border-top-left-radius: 0px;
+    text-align: center;
 }
 
 .text-button-content-entry {
@@ -114,14 +116,6 @@
 
 .text-button-input:hover {
     background: #dccfe4;
-}
-
-.text-button-input-content {
-    @extend .text-button-content;
-    padding: 4px;
-    width: 168px;
-    border-top-right-radius: 5px;
-    text-align: center;
 }
 
 .text-button-input-content-entry {

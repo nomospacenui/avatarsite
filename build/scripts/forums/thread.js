@@ -143,8 +143,6 @@ class Thread {
     }
 
     create_page_jump_button() {
-        const current_page = this._url_vars["page"]
-        
         const page_jump_button = document.createElement("popup")
         page_jump_button.className = "pagebutton"
         page_jump_button.innerHTML = "..."
