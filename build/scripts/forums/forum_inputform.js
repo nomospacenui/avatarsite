@@ -8,10 +8,12 @@ class InputForm {
 
         var internalcontent_container = document.getElementById("internal-body")
         
-        var title_input = document.createElement("input")
-        title_input.className = "title-input"
-        title_input.placeholder = "Title of thread"
-        internalcontent_container.append(title_input)
+        if ("subforum" in this._url_vars) {
+            var title_input = document.createElement("input")
+            title_input.className = "title-input"
+            title_input.placeholder = "Title of thread"
+            internalcontent_container.append(title_input)
+        }
 
         var content_header = document.createElement("div")
         content_header.className = "content-header"
@@ -44,7 +46,7 @@ class InputForm {
         content_input.oninput = content_input.onchange
 
         submit_button.onclick = async function() {
-            if (title_input.value == "") {
+            if ("subforum" in url_vars && title_input.value == "") {
                 alert("Title must be non-empty")
                 return
             }
@@ -55,14 +57,26 @@ class InputForm {
             }
 
             var d = new Date()
-            await db_functions.create_entry_in_table("threads",
-                {
-                    "content": content_input.value,
-                    "subforum_id": url_vars["subforum"],
-                    "datetime": (d.getMonth() + 1) + "-" + d.getDate() + "-" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(),
-                    "name": title_input.value
-                }
-            )
+            if ("subforum" in url_vars) {
+                await db_functions.create_entry_in_table("threads",
+                    {
+                        "content": content_input.value,
+                        "subforum_id": url_vars["subforum"],
+                        "datetime": (d.getMonth() + 1) + "-" + d.getDate() + "-" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(),
+                        "name": title_input.value
+                    }
+                )
+            }
+
+            else {
+                await db_functions.create_entry_in_table("replies",
+                    {
+                        "content": content_input.value,
+                        "datetime": (d.getMonth() + 1) + "-" + d.getDate() + "-" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(),
+                        "thread_id": url_vars["thread"]
+                    }
+                )
+            }
 
             site_nav.go_to_url(site_nav.change_url_var({"page": 1}, url_vars, ["action"]))
         }

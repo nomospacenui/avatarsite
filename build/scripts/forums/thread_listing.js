@@ -91,7 +91,7 @@ class ThreadListing {
         thread_page_buttons_container.appendChild(thread_createthread_button)
 
         function create_thread_redirect(url_vars) {
-            site_nav.go_to_url(site_nav.change_url_var({"action": "create_thread"}, url_vars, ["page"]))
+            site_nav.go_to_url(site_nav.change_url_var({"action": "create"}, url_vars, ["page"]))
         }
 
         thread_createthread_button.onclick = create_thread_redirect.bind(null, this._url_vars)

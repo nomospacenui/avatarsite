@@ -130,6 +130,12 @@ class Thread {
         thread_reply_button.innerHTML = "Reply"
         thread_page_buttons_container.appendChild(thread_reply_button)
 
+        function create_reply_redirect(url_vars) {
+            site_nav.go_to_url(site_nav.change_url_var({"action": "create"}, url_vars, ["page"]))
+        }
+
+        thread_reply_button.onclick = create_reply_redirect.bind(null, this._url_vars)
+
         return thread_page_buttons
     }
 

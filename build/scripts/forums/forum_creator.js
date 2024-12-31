@@ -20,15 +20,10 @@ class ForumCreator {
         this._url_vars = this.get_vars_from_url()
 
         if (this._url_vars) {
-            if ("subforum" in this._url_vars &&
-                "action" in this._url_vars &&
-                this._url_vars["action"] == "create_thread")
-                status = await this.init_create_thread_layout()
-
-            else if ("thread" in this._url_vars &&
-                     "action" in this._url_vars &&
-                     this._url_vars["action"] == "create_reply")
-                status = await this.init_create_reply_layout()
+            if ("action" in this._url_vars &&
+                this._url_vars["action"] == "create" &&
+                ("thread" in this._url_vars || "subforum" in this._url_vars))
+                status = await this.init_inputform_layout()
 
             else if ("thread" in this._url_vars &&
                      "page" in this._url_vars &&
@@ -85,15 +80,15 @@ class ForumCreator {
         return url_vars
     }
 
-    async init_create_thread_layout() {
+    async init_inputform_layout() {
         const subforums_data = await db_functions.get_all_from_table("subforums")
-        new ForumBreadcrumbs(subforums_data, subforums_data[this._url_vars["subforum"]], this._url_vars)
-        new InputForm(this._url_vars)
-    }
+        if (this._url_vars["subforum"]) 
+            new ForumBreadcrumbs(subforums_data, subforums_data[this._url_vars["subforum"]], this._url_vars)
+        else  {
+            const thread_data = await db_functions.get_entry_from_table("threads", this._url_vars["thread"])
+            new ForumBreadcrumbs(subforums_data, subforums_data[thread_data["subforum_id"]], this._url_vars)
+        }
 
-    async init_create_reply_layout() {
-        const subforums_data = await db_functions.get_all_from_table("subforums")
-        new ForumBreadcrumbs(subforums_data, subforums_data[this._url_vars["subforum"]], this._url_vars)
         new InputForm(this._url_vars)
     }
 
