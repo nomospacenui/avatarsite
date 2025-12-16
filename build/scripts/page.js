@@ -19,7 +19,9 @@ class Page {
             var button = document.createElement("button")
             button.innerHTML = nav_items[i]
             
-            if (window.location.href.includes(nav_items[i].toLowerCase())) {
+            const url_directory_end = window.location.href.lastIndexOf('/')
+            const url_without_directory = window.location.href.substring(url_directory_end)
+            if (url_without_directory.includes(nav_items[i].toLowerCase())) {
                 button.className = "nav-button-accent"
                 var page_title = document.getElementById("page_title")
                 page_title.innerHTML = nav_items[i]
