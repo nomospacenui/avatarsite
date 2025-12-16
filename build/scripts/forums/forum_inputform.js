@@ -4,7 +4,7 @@ import db_functions from "../database.js"
 class InputForm {
     constructor(url_vars) {
         this._url_vars = url_vars
-        this._icon_image_root_dir = "../../../assets/images/icons/create_post/"
+        this._icon_image_root_dir = "../../assets/images/icons/create_post/"
 
         var internalcontent_container = document.getElementById("internal-body")
         
@@ -42,8 +42,13 @@ class InputForm {
         content_input.onchange = function () {
             preview_text.dispatchEvent(new CustomEvent("change", {'detail': {'input_box': this}}))
         }
-        
         content_input.oninput = content_input.onchange
+        
+        if ("quote" in url_vars) {
+            console.log(url_vars)
+            content_input.value = "<q>" + url_vars["quote"] + "</q>"
+            content_input.onchange()
+        }
 
         submit_button.onclick = async function() {
             if ("subforum" in url_vars && title_input.value == "") {
@@ -60,7 +65,7 @@ class InputForm {
             if ("subforum" in url_vars) {
                 await db_functions.create_entry_in_table("threads",
                     {
-                        "content": content_input.value,
+                        "content": preview_text.innerHTML,
                         "subforum_id": url_vars["subforum"],
                         "datetime": (d.getMonth() + 1) + "-" + d.getDate() + "-" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(),
                         "name": title_input.value
@@ -71,7 +76,7 @@ class InputForm {
             else {
                 await db_functions.create_entry_in_table("replies",
                     {
-                        "content": content_input.value,
+                        "content": preview_text.innerHTML,
                         "datetime": (d.getMonth() + 1) + "-" + d.getDate() + "-" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(),
                         "thread_id": url_vars["thread"]
                     }
@@ -282,6 +287,7 @@ class InputForm {
         preview_text.innerHTML = ""
         preview_text.addEventListener('change', function (event) {
             preview_text.innerHTML = event.detail.input_box.value.replaceAll('\n', '<br>')
+            preview_text.innerHTML = event.detail.input_box.value.replaceAll('<q>', '<q class="quote">')
             preview_container.style.visibility = preview_text.innerHTML == "" ? "hidden": "visible"
         })
 

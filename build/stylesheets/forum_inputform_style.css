@@ -184,4 +184,10 @@
   overflow: hidden;
 }
 
+.quote {
+  background: rgba(189, 189, 209, 0.8274509804);
+  padding: 12px;
+  border-radius: 5px;
+}
+
 /*# sourceMappingURL=forum_inputform_style.css.map */
